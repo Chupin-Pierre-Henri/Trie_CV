@@ -3,6 +3,9 @@ package fr.univ_lyon1.info.m1.cv_search;
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main class for the application (structure imposed by JavaFX).
