@@ -8,14 +8,24 @@ import java.util.HashMap;
 public abstract class Strategy {
     private String name;
     private int value;
-    private HashMap<Applicant,Integer> result;
+    HashMap<Applicant,Integer> result;
 
     Strategy(String name, int value){
         this.name = name;
         this.value = value;
     }
 
-    public abstract ApplicantList filter(ApplicantList applicants);
+    public ApplicantList filter(ApplicantList applicants) {
+        ApplicantList result = new ApplicantList();
+        for ( Applicant a :  applicants) {
+            if (respectCriterion(a)){
+                result.add(a);
+            }
+        }
+        return result;
+    }
+
+    protected abstract boolean respectCriterion(Applicant a);
 
     public String getName(){
         return name;

@@ -9,7 +9,7 @@ public class ApplicantList implements Iterable<Applicant>
 {
     private List<Applicant> list = new ArrayList<Applicant>();
 
-    void add(Applicant a) {
+    public void add(Applicant a) {
         list.add(a);
     }
 
