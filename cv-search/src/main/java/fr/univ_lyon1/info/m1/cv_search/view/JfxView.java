@@ -3,7 +3,6 @@ package fr.univ_lyon1.info.m1.cv_search.view;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import fr.univ_lyon1.info.m1.cv_search.model.Applicant;
 import fr.univ_lyon1.info.m1.cv_search.model.ApplicantList;
 import fr.univ_lyon1.info.m1.cv_search.model.ApplicantListBuilder;
