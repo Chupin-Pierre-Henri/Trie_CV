@@ -12,7 +12,7 @@
   [lab3-patterns/README.md](lab3-patterns/README.md) pour les
   consignes.
 
-* Examen : Date et salles à venir.
+* Examen : Date et salles à venir. 1h30 (sauf tiers-temps)
   Consignes : Seules 5 feuilles A4 recto-verso sont autorisées à
   l’examen. Leur contenu est libre. Elle peuvent être une sélection de
   transparents, ou manuscrites, recto-verso, avec une taille de
@@ -37,14 +37,22 @@ email, ce fichier en contient une copie.
 
 * [lab1-java/README.md](lab1-java/README.md)
 
-<!-- ## Course 2: Build tools, dependency management, forge -->
+## Course 2: Build tools, dependency management, forge, coding style
 
-<!-- * [02-cm-maven-forge-ic-slides.pdf](02-cm-maven-forge-ic-slides.pdf) -->
-<!--   (printable version: [02-cm-maven-forge-ic-handout.pdf](02-cm-maven-forge-ic-handout.pdf)) -->
+* [02-cm-maven-forge-ic-slides.pdf](02-cm-maven-forge-ic-slides.pdf)
+  (printable version: [02-cm-maven-forge-ic-handout.pdf](02-cm-maven-forge-ic-handout.pdf))
+
+* [03-coding-style-slides.pdf](03-coding-style-slides.pdf)
+  (printable version: [03-coding-style-handout.pdf](03-coding-style-handout.pdf))
 
 ## Lab 2:
 
 * [lab2-tools/README.md](lab2-tools/README.md)
+
+<!-- ## Course 3: Design-patterns -->
+
+<!-- * Slides : [CM-patterns.pdf](https://perso.liris.cnrs.fr/lionel.medini/enseignement/M1IF01/CM-patterns.pdf) -->
+
 
 ## Lab 3 & 4: design patterns & refactoring
 
@@ -57,8 +65,6 @@ email, ce fichier en contient une copie.
 
 <!-- ## Course 3: Coding style and use-cases -->
 
-<!-- * [03-coding-style-slides.pdf](03-coding-style-slides.pdf) -->
-<!--   (printable version: [03-coding-style-handout.pdf](03-coding-style-handout.pdf)) -->
 
 <!-- * [04-UML-CU.pdf](04-UML-CU.pdf) -->
 
@@ -73,10 +79,6 @@ email, ce fichier en contient une copie.
 <!--   (printable version: [05-agilite-handout.pdf](05-agilite-handout.pdf)) -->
 
 <!-- ## Tutorial 2: Paper4Scrum -->
-
-<!-- ## Course 5: Design-patterns -->
-
-<!-- * Slides : [CM-patterns.pdf](https://perso.liris.cnrs.fr/lionel.medini/enseignement/M1IF01/CM-patterns.pdf) -->
 
 <!-- ## Course 6: Testing -->
 
@@ -97,13 +99,13 @@ This repository contains course material and code skeletons. The
 recommended way to use it is:
 
 * Fork the project from
-  https://forge.univ-lyon1.fr/matthieu.moy/m1if01 and make it private.
+  https://forge.univ-lyon1.fr/matthieu.moy/m1if01-2019 and make it private.
   
 * Clone your fork and work in the fork.
 
 To get updates from the teacher's repository, run once :
 
-    git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/m1if01.git
+    git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/m1if01-2019.git
 
 Then, each time you want to fetch updates, run :
 

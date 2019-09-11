@@ -43,8 +43,10 @@ public class JfxView {
         root.getChildren().add(searchSkillsBox);
         
         List<String> strategies = new ArrayList<String>();
-        strategies.add("50");
-        strategies.add("60");
+        strategies.add("sup50");
+        strategies.add("sup60");
+        strategies.add("moyenne50");
+        strategies.add("moyenne50AndSup30");
         strategicOption = createStrategicOptions(strategies);
         root.getChildren().add(strategicOption);
 
@@ -125,22 +127,29 @@ public class JfxView {
 			@Override
             public void handle(ActionEvent event) {
                 // TODO
-				int value = 50;
-            	if(strategicOption.getValue() == "50"){
-            		value = 50;
-            	}
-            	
-
-            	System.out.println(strategicOption.getValue());
-            	if(strategicOption.getAccessibleText() == "60"){
-            		value = 60;
-            	}
-				
                 ApplicantList listApplicants
                     = new ApplicantListBuilder(new File(".")).build();
                 resultBox.getChildren().clear();
                 for (Applicant a : listApplicants) {
-                	boolean selected = superiorToValue(a, value);
+                    boolean selected;
+
+				    int value = 50;
+                    switch(strategicOption.getValue()){
+                        case "sup60":
+                            value = 60;
+                        case "sup50":
+                            selected = superiorToValue(a, value);
+                            break;
+                        case "moyenne50":
+                            selected = skillMoyenne(a,0);
+                            break;
+                        case "moyenne50AndSup30":
+                            selected = skillMoyenne(a,30);
+                            break;
+                        default:
+                            selected = superiorToValue(a, value);
+                            break;
+                    }
                     if (selected) {
                         resultBox.getChildren().add(new Label(a.getName()));
                     }
@@ -148,15 +157,34 @@ public class JfxView {
             }
 
 			private boolean superiorToValue(Applicant a, int value) {
-				boolean selected = true;
 				for (Node skill : searchSkillsBox.getChildren()) {
 				    String skillName = ((Button) skill).getText();
 				    if (a.getSkill(skillName) < value) {
-				        selected = false;
-				        break;
+				        return false;
 				    }
 				}
-				return selected;
+				return true;
+			}
+            private boolean skillMoyenne(Applicant a, int value) {
+                int moyenne = 0;
+                int count = 0;
+				for (Node skill : searchSkillsBox.getChildren()) {
+				    String skillName = ((Button) skill).getText();
+                    count ++;
+                    moyenne += a.getSkill(skillName);
+				    if (a.getSkill(skillName) < value) {
+				        return false;
+				    }
+				}
+                if(count != 0 ){
+                    if(moyenne / count > 50){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                    
+				return true;
 			}
         });
         return search;

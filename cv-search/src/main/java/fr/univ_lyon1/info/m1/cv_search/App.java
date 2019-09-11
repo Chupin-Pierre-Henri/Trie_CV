@@ -20,9 +20,12 @@ public class App extends Application {
         new JfxView(stage, 600, 600);
     }
 
+
+    /**
+     * A main method in case the user launches the application using
+     * App as the main class.
+     */
     public static void main(String[] args) {
-        // In case the user launches the application using App as the
-        // main class:
         Application.launch(args);
     }
 }

@@ -115,7 +115,7 @@ le bouton « save changes ».
 
 Pour vérifier que votre projet est bien privé (indispensable),
 retournez à la page d'accueil de votre projet
-(`https://forge.univ-lyon1.fr/votre.nom/m1if01`) et copiez l'URL.
+(`https://forge.univ-lyon1.fr/votre.nom/m1if01-2019`) et copiez l'URL.
 Ouvrez une fenêtre de navigation privée
 (<kbd>Control</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> sous Firefox,
 <kbd>Control</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd> sous Chrom{e,ium}), et collez l'URL de votre projet

@@ -42,6 +42,10 @@ Il est demandé de travailler en binômes.
 Penser à remplir dès à présent TOMUSS pour indiquer votre dépôt forge.
 *Cf*. instructions dans [../projet-note.md](../projet-note.md).
 
+### Outils
+
+Il est fortement conseillé d'utiliser un IDE capable __a minima__ de générer des diagrammes UML à partir du code, ou mieux, de faire du __round-trip engineering__ (prendre en compte les modifications du code dans les schémas et inversement).
+
 ### Qualité du code
 
 Le but de ce cours en général est de vous apprendre à écrire du code propre (irréprochable ?). 
@@ -62,7 +66,7 @@ Il va vous falloir réorganiser le code en appliquant les patrons de conception 
 Commencez par passer l'application au crible des 4 premiers patterns GRASP présentés dans le cours (expert, créateur, faible couplage, forte cohésion).
 Au besoin, déplacez les éléments entre les classes, et servez-vous des 4 suivants (indirection, fabrication pure, protection des variations, polymorphisme) pour rendre votre code plus robuste et facilement maintenable.
 
-Cette étape ne doit pas durer plus de 20 minutes (vous devrez de toutes façons revenir sur beaucoup de vos choix lors du découpage Modèle-Vue-Contrôleur). Ne vous préoccupez pas pour l'instant du pattern contrôleur, ni du mélange entre métier et vue.
+Cette étape ne doit pas durer plus de 20 minutes (vous devrez de toutes façons revenir sur beaucoup de vos choix lors du découpage Modèle-Vue-Contrôleur). Ne vous préoccupez pas pour l'instant du pattern MVC, ni du mélange entre métier et vue.
 
 **Vous décrirez dans votre rapport les modifications que vous avez choisi de faire, et les justifierez.**
 
@@ -75,16 +79,16 @@ Mettez en place un pattern MVC pour :
   des éléments (boutons et champs textes),
 
 - propager les changements du modèle métier (ajout de compétences
-  rechechées, ...) dans la vue,
+  rechechées...) dans la vue,
 
 - répercuter les entrées utilisateur (clic sur un bouton, validation
-  d'un champ texte avec la touche « entrée », ...) sous la forme
+  d'un champ texte avec la touche « entrée »...) sous la forme
   adéquate dans le modèle métier.
 
 Pour vous aider, vous pouvez utilier les slides du cours sur les patterns contrôleur et MVC, ainsi que le document [Mettre en place le pattern MVC](mvc.md). Ce document propose des questions pertinentes à se poser, ainsi que quelques éléments de réponses, mais ce ne sont ni les seules questions ni les seules réponses pertinentes.
 
 **Pour chacun des patterns implémentés à partir de cette partie,
-décrirez (en 1 ou 2 paragraphe) pourquoi vous avez choisi de
+vous décrirez (en 1 ou 2 paragraphes) pourquoi vous avez choisi de
 l'utiliser, et vous fournirez dans votre rapport un/des diagramme(s)
 UML illustrant comment vous l'avez mis en oeuvre.**
 
@@ -115,20 +119,20 @@ toujours au moment du rendu.
 
 ### Autres patterns
 
-Reprenez les transparents du cours et parcourez la liste des patterns GRASP, des patterns de création, de structure, des principes SOLID, et posez-vous la question de l'applicabilité sur votre projet.
+Reprenez les transparents du cours et parcourez la liste des patterns GRASP, des patterns de création, de structure, des principes SOLID, et posez-vous la question de leur applicabilité sur votre projet.
 Appliquez ceux qui vous semblent pertinents, et de la même façon que précédemment, documentez cela dans votre rapport (si possible, en suivant la progression du cours : GRASP, création, structure...).
 
 ### Anticiper sur le TP 5 "test"
 
 Avant d'aller plus loin sur les extensions, c'est une bonne idée de progresser en tests : nous serons plus en sécurité pour continuer le refactoring et les extensions avec une bonne base de tests. 
 Allez jeter un œil au [TP "Test"](../lab5-test/README.md) (en particulier la section sur le TDD), et revenez pour la suite de ce TP après. 
-A vous de voir dans quel ordre vous voulez avancer précisément.
+&Agrave; vous de voir dans quel ordre vous voulez avancer précisément.
 
 Partie 2 : Extension
 -------------------------
 
 Dans toute cette partie, l'ajout de fonctionnalité est un prétexte pour se servir de design patterns. 
-Ajoutez chaque fonctionnalité en appliquant les principes et patterns vus en cours, et justifiez-le dans le rapport.
+Ajoutez chaque fonctionnalité en appliquant les principes et patterns vus en cours, et justifiez-la dans le rapport.
 
 ### Stratégie de base sélection des CV
 
@@ -168,7 +172,7 @@ experience:
 Qu'il faut lire « le candidat a travaillé de 2005 à 2010 chez Google
 où il a pratiqué C, C++ et Java, puis de 2010 à 2019 chez Facebook où
 il a pratiqué Python et PHP ». Proposez un ou plusieurs moyens
-pertinents de prendre en compte à la fois les compétences décléarées
+pertinents de prendre en compte à la fois les compétences déclarées
 et l'expérience professionnelle. N'hésitez pas à ajouter des CV à la
 base en créant d'autres fichiers `.yaml` dans votre projet.
 
@@ -184,7 +188,7 @@ côté, par exemple comme ceci :
 
 ![Liste de compétences](img/list-skills.png)
 
-Cet copie d'écran a été obtenue avec le code ci-dessous dont vous
+Cette copie d'écran a été obtenue avec le code ci-dessous dont vous
 pouvez vous inspirer :
 
 ```java
@@ -198,7 +202,7 @@ pouvez vous inspirer :
 ```
 
 Cette modification devrait être purement locale à la vue. Si vous avez
-du modifier le modèle ou le contrôleur, revoyez votre MVC !
+dû modifier le modèle ou le contrôleur, revoyez votre MVC !
 
 ### Affichage de la liste 
 

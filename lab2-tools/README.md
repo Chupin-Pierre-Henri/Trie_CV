@@ -185,6 +185,37 @@ n'existe pas). Mettez-y par exemple ce contenu :
 .DS_Store
 ```
 
+### Travail avec plusieurs dépôts distants
+
+Si vous avez suivi les instructions jusqu'ici, vous devriez travailler
+avec deux dépôts distants :
+
+* https://forge.univ-lyon1.fr/matthieu.moy/m1if01-2019, qui est le
+  squelette fourni par les enseignants. Vous n'y avez accès qu'en
+  lecture (`pull`, `clone`).
+  
+* https://forge.univ-lyon1.fr/<votre-login>/m1if01-2019, qui est votre
+  « fork » privé. Vous avez tous les droits dessus, y compris `push`.
+
+Pour votre travail au quotidien, c'est votre dépôt privé que vous
+utiliserez. Mais quand les enseignants envoient des nouveautés (ou des
+corrections) dans le dépôt enseignant, vous devez également vous
+mettre à jour :
+
+Ajoutez le dépôt enseignant comme dépôt distant (à faire une fois en
+début de projet) :
+
+```
+git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/m1if01-2019.git
+```
+
+Pour récupérer les mises à jour du dépôt enseignant, faites :
+
+```
+git pull moy master  # Récupérer les modifications en local
+git push  # Les envoyer vers votre fork privé
+```
+
 ## Invocation de maven
 
 Vous avez déjà vu au TP précédent la commande pour compiler :
