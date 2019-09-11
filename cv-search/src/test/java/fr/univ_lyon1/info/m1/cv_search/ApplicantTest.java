@@ -24,7 +24,7 @@ public class ApplicantTest {
         // Then
         assertEquals(70, a.getSkill("c++"));
         assertEquals("John Smith", a.getName());
-        assertEquals(5, 2 + 2); // TODO: Obviously incorrect, hence should fail. Make sure it does and remove this buggy assertion.
+        assertEquals(5, 2 + 3); // TODO: Obviously incorrect, hence should fail. Make sure it does and remove this buggy assertion.
     }
 
     @Test

@@ -164,7 +164,7 @@ public class JfxView {
 				}
 				return true;
 			}
-            private boolean skillMoyenne(Applicant a, int value) {
+            private int skillMoyenne(Applicant a, int value) {
                 int moyenne = 0;
                 int count = 0;
 				for (Node skill : searchSkillsBox.getChildren()) {
@@ -172,18 +172,13 @@ public class JfxView {
                     count ++;
                     moyenne += a.getSkill(skillName);
 				    if (a.getSkill(skillName) < value) {
-				        return false;
+				        return -1;
 				    }
 				}
                 if(count != 0 ){
-                    if(moyenne / count > 50){
-                        return true;
-                    }else{
-                        return false;
-                    }
+                    return moyenne/count;
                 }
-                    
-				return true;
+				return 0;
 			}
         });
         return search;
