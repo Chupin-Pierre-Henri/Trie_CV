@@ -1,18 +1,21 @@
-package fr.univ_lyon1.info.m1.cv_search.controller;
+package fr.univ_lyon1.info.m1.cv_search.model.filter;
 
-import fr.univ_lyon1.info.m1.cv_search.model.Applicant;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
-public class StrategyMoy extends Strategy{
+public class StrategyMoy extends StrategyDecorator{
 
-    StrategyMoy(String name, int value) {
-        super(name, value);
+    StrategyMoy(String name, int value, Strategy deco) {
+        super(name, value, deco);
     }
 
     @Override
     protected boolean respectCriterion(Applicant a) {
+        if( !super.respectCriterion(a) ){
+            return false;
+        }
         //TODO howto get search Skills box
         int weight = 0;
         ObservableList<Node> skills = searchSkillsBox.getChildren();

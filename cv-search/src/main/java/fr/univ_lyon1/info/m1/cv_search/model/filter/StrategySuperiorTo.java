@@ -1,7 +1,6 @@
-package fr.univ_lyon1.info.m1.cv_search.controller;
+package fr.univ_lyon1.info.m1.cv_search.model.filter;
 
-import fr.univ_lyon1.info.m1.cv_search.model.Applicant;
-import fr.univ_lyon1.info.m1.cv_search.model.ApplicantList;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ public class StrategySuperiorTo extends Strategy {
     StrategySuperiorTo(String name, int value) {
         super(name, value);
     }
-
 
     protected boolean respectCriterion(Applicant a){
         //TODO howto get search Skills box

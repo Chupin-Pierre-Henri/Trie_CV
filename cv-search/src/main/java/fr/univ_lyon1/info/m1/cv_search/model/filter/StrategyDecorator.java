@@ -1,7 +1,6 @@
-package fr.univ_lyon1.info.m1.cv_search.controller;
+package fr.univ_lyon1.info.m1.cv_search.model.filter;
 
-import fr.univ_lyon1.info.m1.cv_search.model.Applicant;
-import fr.univ_lyon1.info.m1.cv_search.model.ApplicantList;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 
 public abstract class StrategyDecorator extends Strategy {
 
