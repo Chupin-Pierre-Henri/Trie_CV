@@ -19,7 +19,12 @@ public class Request implements Component{
 	public boolean isSkill() {
 		return false;
 	}
-	
+
+	/**
+	 *
+	 * @param c a Component to add in List's Request
+	 * @throws RequestAddExeption if Component c is not skill or filter
+	 */
 	public void addComponent(Component c) throws RequestAddExeption{
 		if (c.isFilter() || c.isSkill()){
 			components.add(c);

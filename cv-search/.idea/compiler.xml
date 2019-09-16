@@ -9,8 +9,5 @@
         <module name="cv_search" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="cv_search" target="8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
