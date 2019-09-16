@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
+import java.util.List;
+
 public class StrategySuperiorTo extends Strategy {
 
     StrategySuperiorTo(String name, int value) {
@@ -14,9 +16,8 @@ public class StrategySuperiorTo extends Strategy {
     protected boolean respectCriterion(Applicant a){
         //TODO howto get search Skills box
         int weight = 0;
-        ObservableList<Node> skills = searchSkillsBox.getChildren();
-        for (Node skill : skills ) {
-            String skillName = ((Button) skill).getText();
+        List<String> skills = this.getSkills();
+        for (String skillName : skills ) {
             weight += a.getSkill(skillName);
             if (a.getSkill(skillName) < this.getValue()) {
                 return false;

@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
+import java.util.List;
+
 public class StrategyMoy extends StrategyDecorator{
 
     StrategyMoy(String name, int value, Strategy deco) {
@@ -18,9 +20,8 @@ public class StrategyMoy extends StrategyDecorator{
         }
         //TODO howto get search Skills box
         int weight = 0;
-        ObservableList<Node> skills = searchSkillsBox.getChildren();
-        for( Node skill : skills ){
-            String skillName = ((Button) skill).getText();
+        List<String> skills = this.getSkills();
+        for( String skillName : skills ){
             weight += a.getSkill(skillName);
         }
         if( skills.size() != 0 ){
