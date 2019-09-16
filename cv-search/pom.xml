@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>cv_search</name>
-  <url>https://forge.univ-lyon1.fr/matthieu.moy/m1if01</url>
+  <url>https://forge.univ-lyon1.fr/p1923879/m1if01</url>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

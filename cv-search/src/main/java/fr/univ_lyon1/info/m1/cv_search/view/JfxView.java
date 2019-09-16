@@ -1,9 +1,5 @@
 package fr.univ_lyon1.info.m1.cv_search.view;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
@@ -20,6 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JfxView {
     private HBox searchSkillsBox;
@@ -40,7 +40,7 @@ public class JfxView {
 
         Node searchSkillsBox = createCurrentSearchSkillsWidget();
         root.getChildren().add(searchSkillsBox);
-        
+
         List<String> strategies = new ArrayList<String>();
         strategies.add("sup50");
         strategies.add("sup60");
@@ -60,16 +60,15 @@ public class JfxView {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     /**
-     * 
-     * @param options
-     * @return
+     * Create the dropdown box for choising the strategy.
      */
-	private ComboBox<String> createStrategicOptions(List<String> options){
-    	ObservableList<String> opts = FXCollections.observableList(options);
-    	return new ComboBox<String>(opts);
+    private ComboBox<String> createStrategicOptions(List<String> options) {
+        ObservableList<String> opts = FXCollections.observableList(options);
+        return new ComboBox<String>(opts);
     }
+
     /**
      * Create the text field to enter a new skill.
      */
@@ -119,31 +118,32 @@ public class JfxView {
      * Create the widget used to trigger the search.
      */
     private Node createSearchWidget() {
-    	
         Button search = new Button("Search");
         search.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
+            @Override
             public void handle(ActionEvent event) {
                 // TODO
                 ApplicantList listApplicants
-                    = new ApplicantListBuilder(new File(".")).build();
+                        = new ApplicantListBuilder(new File(".")).build();
                 resultBox.getChildren().clear();
                 for (Applicant a : listApplicants) {
                     boolean selected;
 
-				    int value = 50;
-                    switch(strategicOption.getValue()){
+                    int value = 50;
+                    switch (strategicOption.getValue()) {
                         case "sup60":
                             value = 60;
+                            selected = superiorToValue(a, value);
+                            break;
                         case "sup50":
                             selected = superiorToValue(a, value);
                             break;
                         case "moyenne50":
-                            selected = skillMoyenne(a,0);
+                            selected = skillMoyenne(a, 0);
                             break;
                         case "moyenne50AndSup30":
-                            selected = skillMoyenne(a,30);
+                            selected = skillMoyenne(a, 30);
                             break;
                         default:
                             selected = superiorToValue(a, value);
@@ -155,36 +155,33 @@ public class JfxView {
                 }
             }
 
-			private boolean superiorToValue(Applicant a, int value) {
-				for (Node skill : searchSkillsBox.getChildren()) {
-				    String skillName = ((Button) skill).getText();
-				    if (a.getSkill(skillName) < value) {
-				        return false;
-				    }
-				}
-				return true;
-			}
-            private boolean skillMoyenne(Applicant a, int value) {
-                int moyenne = 0;
-                int count = 0;
-				for (Node skill : searchSkillsBox.getChildren()) {
-				    String skillName = ((Button) skill).getText();
-                    count ++;
-                    moyenne += a.getSkill(skillName);
-				    if (a.getSkill(skillName) < value) {
-				        return false;
-				    }
-				}
-                if(count != 0 ){
-                    if(moyenne / count > 50){
-                        return true;
-                    }else{
+            private boolean superiorToValue(Applicant a, int value) {
+                for (Node skill : searchSkillsBox.getChildren()) {
+                    String skillName = ((Button) skill).getText();
+                    if (a.getSkill(skillName) < value) {
                         return false;
                     }
                 }
-                    
-				return true;
-			}
+                return true;
+            }
+
+            private boolean skillMoyenne(Applicant a, int value) {
+                int moyenne = 0;
+                int count = 0;
+                for (Node skill : searchSkillsBox.getChildren()) {
+                    String skillName = ((Button) skill).getText();
+                    count++;
+                    moyenne += a.getSkill(skillName);
+                    if (a.getSkill(skillName) < value) {
+                        return false;
+                    }
+                }
+                if (count != 0) {
+                    return moyenne / count > 50;
+                }
+
+                return true;
+            }
         });
         return search;
     }
