@@ -7,7 +7,11 @@ import javafx.scene.control.Button;
 
 import java.util.List;
 
-public class StrategySuperiorTo extends Strategy {
+public class StrategySuperiorTo extends StrategyDecorator {
+
+    StrategySuperiorTo(String name, int value, Strategy deco) {
+        super(name, value, deco);
+    }
 
     StrategySuperiorTo(String name, int value) {
         super(name, value);
