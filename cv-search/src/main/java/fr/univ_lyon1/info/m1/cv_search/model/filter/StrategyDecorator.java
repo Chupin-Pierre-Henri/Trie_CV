@@ -14,9 +14,9 @@ public abstract class StrategyDecorator extends Strategy {
     }
 
     @Override
-    public void setSkills(List<String> skills) {
+    public void setSkills(List<Skill> skills) {
         super.setSkills(skills);
-        this.skills = skills;
+        deco.setSkills(skills);
     }
 
     protected boolean respectCriterion(Applicant a){

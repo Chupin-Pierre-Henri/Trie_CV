@@ -14,10 +14,10 @@ public class StrategySuperiorTo extends Strategy {
     }
 
     protected boolean respectCriterion(Applicant a){
-        //TODO howto get search Skills box
         int weight = 0;
-        List<String> skills = this.getSkills();
-        for (String skillName : skills ) {
+        List<Skill> skills = this.getSkills();
+        for (Skill skill : skills ) {
+            String skillName = skill.getName();
             weight += a.getSkill(skillName);
             if (a.getSkill(skillName) < this.getValue()) {
                 return false;

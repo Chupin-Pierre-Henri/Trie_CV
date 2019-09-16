@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class Strategy {
-    protected List<String> skills;
+    protected List<Skill> skills;
     private String name;
     private int value;
     HashMap<Applicant,Integer> result;
@@ -41,11 +41,11 @@ public abstract class Strategy {
         return result;
     }
 
-    public List<String> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 }
