@@ -1,11 +1,11 @@
 package fr.univ_lyon1.info.m1.cv_search.model;
 
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
 
 public class ApplicantBuilder {
 
