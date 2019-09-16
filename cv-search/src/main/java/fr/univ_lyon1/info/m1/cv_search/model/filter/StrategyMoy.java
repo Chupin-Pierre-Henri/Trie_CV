@@ -7,10 +7,14 @@ import javafx.scene.control.Button;
 
 import java.util.List;
 
-public class StrategyMoy extends StrategyDecorator{
+public class StrategyMoy extends StrategyDecorator {
 
     StrategyMoy(String name, int value, Strategy deco) {
         super(name, value, deco);
+    }
+
+    StrategyMoy(String name, int value) {
+        super(name, value, new StrategyComponent());
     }
 
     @Override

@@ -14,7 +14,7 @@ public class StrategySuperiorTo extends StrategyDecorator {
     }
 
     StrategySuperiorTo(String name, int value) {
-        super(name, value);
+        super(name, value, new StrategyComponent());
     }
 
     protected boolean respectCriterion(Applicant a){
