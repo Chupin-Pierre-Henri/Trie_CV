@@ -1,8 +1,8 @@
-package fr.univ_lyon1.info.m1.cv_search.model.filter;
+package fr.univ_lyon1.info.m1.cv_search.model.strategy;
 
+import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
-import fr.univ_lyon1.info.m1.cv_search.view.Skill;
 
 import java.util.HashMap;
 import java.util.List;
