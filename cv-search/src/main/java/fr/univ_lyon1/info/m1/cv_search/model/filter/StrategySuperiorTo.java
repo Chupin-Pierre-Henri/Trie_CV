@@ -1,9 +1,7 @@
 package fr.univ_lyon1.info.m1.cv_search.model.filter;
 
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
+import fr.univ_lyon1.info.m1.cv_search.view.Skill;
 
 import java.util.List;
 
@@ -17,20 +15,20 @@ public class StrategySuperiorTo extends StrategyDecorator {
         super(name, value, new StrategyComponent());
     }
 
-    protected boolean respectCriterion(Applicant a){
+    protected boolean respectCriterion(Applicant a) {
         int weight = 0;
         List<Skill> skills = this.getSkills();
-        for (Skill skill : skills ) {
+        for (Skill skill : skills) {
             String skillName = skill.getName();
             weight += a.getSkill(skillName);
             if (a.getSkill(skillName) < this.getValue()) {
                 return false;
             }
         }
-        if( skills.size() != 0){
-            this.result.put(a,weight/skills.size());
-        }else{
-            this.result.put(a,0);
+        if (skills.size() != 0) {
+            this.result.put(a, weight / skills.size());
+        } else {
+            this.result.put(a, 0);
         }
         return true;
     }

@@ -18,5 +18,7 @@ public class Skill implements Component {
         return true;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
