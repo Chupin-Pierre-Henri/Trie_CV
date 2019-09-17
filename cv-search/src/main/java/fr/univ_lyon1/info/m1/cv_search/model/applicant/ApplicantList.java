@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model;
+package fr.univ_lyon1.info.m1.cv_search.model.applicant;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.List;
 public class ApplicantList implements Iterable<Applicant> {
     private List<Applicant> list = new ArrayList<Applicant>();
 
-    void add(Applicant a) {
+    public void add(Applicant a) {
         list.add(a);
     }
 

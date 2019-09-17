@@ -1,8 +1,8 @@
 package fr.univ_lyon1.info.m1.cv_search.view;
 
-import fr.univ_lyon1.info.m1.cv_search.model.Applicant;
-import fr.univ_lyon1.info.m1.cv_search.model.ApplicantList;
-import fr.univ_lyon1.info.m1.cv_search.model.ApplicantListBuilder;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -118,7 +118,6 @@ public class JfxView {
      * Create the widget used to trigger the search.
      */
     private Node createSearchWidget() {
-
         Button search = new Button("Search");
         search.setOnAction(new EventHandler<ActionEvent>() {
 
