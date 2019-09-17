@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model.filter;
+package fr.univ_lyon1.info.m1.cv_search.model.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 
