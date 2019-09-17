@@ -19,7 +19,7 @@ public abstract class Strategy {
     }
 
     /**
-     * Filtering the list of applicant by a criterion
+     * Filtering the list of applicant by a criterion.
      * @param applicants a list of applicant
      * @return the list of applicant that respect criterion
      */

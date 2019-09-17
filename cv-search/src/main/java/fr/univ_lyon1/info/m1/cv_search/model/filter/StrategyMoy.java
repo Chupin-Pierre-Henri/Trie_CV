@@ -30,8 +30,7 @@ public class StrategyMoy extends StrategyDecorator {
             int moy = weight / skills.size();
             if (moy > this.getValue()) {
                 this.result.put(a, moy);
-            }
-            else {
+            } else {
                 return false;
             }
         } else {
