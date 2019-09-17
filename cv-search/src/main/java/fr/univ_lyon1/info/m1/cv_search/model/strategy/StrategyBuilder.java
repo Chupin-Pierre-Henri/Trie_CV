@@ -9,19 +9,24 @@ public class StrategyBuilder {
 
     private Strategy strategy;
 
+    /**
+     * build a strategy depending of filters and skills.
+     * @param filters list of Filter
+     * @param skills list of Skill
+     */
     public StrategyBuilder(List<Filter> filters, List<Skill> skills) {
         if (filters.size() > 1) {
             strategy = constructBaseStrategy(filters.get(0));
         } else {
             strategy = new StrategyComponent();
         }
-        for (int i = 0; i < filters.size(); i++) {
+        for (int i = 1; i < filters.size(); i++) {
             strategy = constructStrategy(filters.get(i),strategy);
         }
         strategy.setSkills(skills);
     }
 
-    private Strategy constructBaseStrategy(Filter filter){
+    private Strategy constructBaseStrategy(Filter filter) {
         return constructStrategy(filter, new StrategyComponent());
     }
 
@@ -33,10 +38,6 @@ public class StrategyBuilder {
             case "superior":
                 ret = new StrategySuperiorTo(name,value,decoring);
                 break;
-//            TODO finish that
-//            case "inferior":
-//                ret = new StrategyInferiorTo(name,value,decoring);
-//                break;
             case "average":
                 ret = new StrategyMoy(name,value,decoring);
                 break;

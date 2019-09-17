@@ -29,4 +29,16 @@ public class ApplicantList implements Iterable<Applicant> {
     public void setList(ApplicantList list) {
         this.list = list.list;
     }
+
+    /**
+     * return the name of Applicant in list.
+     * @return list of String
+     */
+    public List<String> getNamesOfApplicants() {
+        List<String> result = new ArrayList<String>();
+        for (Applicant a : list) {
+            result.add(a.getName());
+        }
+        return result;
+    }
 }
