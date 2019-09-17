@@ -33,7 +33,7 @@ public class Request implements Component {
         throw new RequestAddExeption("Wrong component");
     }
 
-    public List<Component> getComponent() {
+    public List<Component> getComponents() {
         return this.components;
     }
 }
