@@ -80,13 +80,8 @@ public class JfxView {
         Label labelFilter = new Label("Filters:");
 
         // One filter
-        //TODO launch event
-        ObservableList<String> opts = FXCollections.observableList(listStrategy);
-        ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
-        Label labelValue = new Label("Value:");
-        InputArea valueField = new InputArea();
-        Button removeButton = new Button("X");
-
+        HBox newFilterBox = createNewBox();
+        strategicOptionsBox.getChildren().add(newFilterBox);
 
         newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
         newFilterHeadBox.setSpacing(10);
@@ -94,32 +89,37 @@ public class JfxView {
         EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HBox newFilterBox = new HBox();
-
-                ObservableList<String> opts = FXCollections.observableList(listStrategy);
-                ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
-                Label labelValue = new Label("to value:");
-                InputArea valueField = new InputArea();
-                Button removeButton = new Button("X");
-
-                newFilterBox.getChildren().addAll(dropdownMenu,
-                        labelValue,
-                        valueField,
-                        removeButton
-                );
-                newFilterBox.setSpacing(10);
-
-                removeButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        strategicOptionsBox.getChildren().remove(newFilterBox);
-                    }
-                });
+                HBox newFilterBox = createNewBox();
                 strategicOptionsBox.getChildren().add(newFilterBox);
             }
         };
         addButton.setOnAction(filterHandlerAdd);
         return newFilterHeadBox;
+    }
+
+    private HBox createNewBox() {
+        HBox newFilterBox = new HBox();
+
+        ObservableList<String> opts = FXCollections.observableList(listStrategy);
+        ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
+        Label labelValue = new Label("to value:");
+        InputArea valueField = new InputArea();
+        Button removeButton = new Button("X");
+
+        newFilterBox.getChildren().addAll(dropdownMenu,
+                labelValue,
+                valueField,
+                removeButton
+        );
+        newFilterBox.setSpacing(10);
+
+        removeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                strategicOptionsBox.getChildren().remove(newFilterBox);
+            }
+        });
+        return newFilterBox;
     }
 
     /**
