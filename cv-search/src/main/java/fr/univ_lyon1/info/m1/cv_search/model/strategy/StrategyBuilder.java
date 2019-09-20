@@ -43,6 +43,7 @@ public class StrategyBuilder {
                 break;
             case "lower":
                 ret = new StrategyLowerTo(name,value,decoring);
+                break;
             default:
                 ret = decoring;
         }
