@@ -26,10 +26,10 @@ public class Controller {
     public List<String> handleRequest(Request req) {
         this.request = req;
 
-        return this.executeRequest();
+        return this.executeSearchStrategyRequest();
     }
 
-    private List<String> executeRequest() {
+    private List<String> executeSearchStrategyRequest() {
         List<String> result = new ArrayList<String>();
         StrategyBuilder stratBuild = new StrategyBuilder(request.getFilters(), request.getSkills());
         Strategy strategy = stratBuild.getStrategy();
