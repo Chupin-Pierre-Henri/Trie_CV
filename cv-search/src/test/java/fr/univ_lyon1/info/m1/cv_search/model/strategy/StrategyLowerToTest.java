@@ -5,6 +5,6 @@ public class StrategyLowerToTest extends StrategyDecoratorTest {
 
     @Override
     public Strategy creatNewStrat() {
-        return new StrategyMoy("average", 50);
+        return new StrategyLowerTo("lower", 90);
     }
 }

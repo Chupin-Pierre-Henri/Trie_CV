@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search;
+package fr.univ_lyon1.info.m1.cv_search.model.applicant;
 
 import static org.junit.Assert.*;
 
