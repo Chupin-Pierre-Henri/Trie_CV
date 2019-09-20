@@ -23,7 +23,7 @@ public class Controller {
      * @param req the Request
      * @return the answer of Request
      */
-    public List<String> receiveRequest(Request req) {
+    public List<String> handleRequest(Request req) {
         this.request = req;
 
         return this.executeRequest();
