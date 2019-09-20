@@ -25,7 +25,7 @@ import java.util.List;
 
 public class JfxView {
     private HBox searchSkillsBox;
-    private HBox strategicOptionsBox;
+    private VBox strategicOptionsBox;
     private VBox resultBox;
 
     private Controller controller;
@@ -55,6 +55,9 @@ public class JfxView {
 
         Node strategicNode = createStrategicOptions();
         root.getChildren().add(strategicNode);
+
+        Node strategicOptionsBox = createCurrentFiltersWidget();
+        root.getChildren().add(strategicOptionsBox);
 
         Node search = createSearchWidget();
         root.getChildren().add(search);
@@ -106,13 +109,13 @@ public class JfxView {
                 );
                 newFilterBox.setSpacing(10);
 
-                strategicOptionsBox.getChildren().add(newFilterBox);
                 removeButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        strategicOptionsBox.getChildren().remove(removeButton);
+                        strategicOptionsBox.getChildren().remove(newFilterBox);
                     }
                 });
+                strategicOptionsBox.getChildren().add(newFilterBox);
             }
         };
         addButton.setOnAction(filterHandlerAdd);
@@ -172,6 +175,8 @@ public class JfxView {
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                resultBox.getChildren().clear();
+
                 Request request = new Request();
                 /*
                 for (Node skill : searchSkillsBox.getChildren()) {
@@ -198,5 +203,13 @@ public class JfxView {
     private Node createCurrentSearchSkillsWidget() {
         searchSkillsBox = new HBox();
         return searchSkillsBox;
+    }
+
+    /**
+     * Create the widget containing the different filter for search.
+     */
+    private Node createCurrentFiltersWidget() {
+        strategicOptionsBox = new VBox();
+        return strategicOptionsBox;
     }
 }
