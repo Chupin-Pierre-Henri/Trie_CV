@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Request {
-    protected List<Filter> filters;
+    protected String requestType;
     protected List<Skill> skills;
+    protected List<Filter> filters;
 
-    public Request() {
+    public Request(String type) {
+        requestType = type;
         this.skills = new ArrayList<Skill>();
         this.filters = new ArrayList<Filter>();
+    }
+
+    public String getRequestType() {
+        return requestType;
     }
 
     /**

@@ -177,7 +177,7 @@ public class JfxView {
             public void handle(ActionEvent event) {
                 resultBox.getChildren().clear();
 
-                Request request = new Request();
+                Request request = new Request("search");
                 /*
                 for (Node skill : searchSkillsBox.getChildren()) {
                     request.add(skill.getAccessibleText()); //TODO check that

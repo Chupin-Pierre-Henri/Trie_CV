@@ -25,8 +25,12 @@ public class Controller {
      */
     public List<String> handleRequest(Request req) {
         this.request = req;
+        List<String> ret = new ArrayList<String>();
 
-        return this.executeSearchStrategyRequest();
+        if (req.getRequestType() == "search"){
+            ret = this.executeSearchStrategyRequest();
+        }
+        return ret;
     }
 
     private List<String> executeSearchStrategyRequest() {
