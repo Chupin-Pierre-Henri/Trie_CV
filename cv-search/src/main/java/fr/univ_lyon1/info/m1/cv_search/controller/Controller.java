@@ -14,12 +14,12 @@ public class Controller {
 
     protected Request request;
 
-    Controller() {
-
+    public Controller() {
     }
 
     /**
      * receive a request and execute it.
+     *
      * @param req the Request
      * @return the answer of Request
      */

@@ -120,7 +120,6 @@ public class JfxView {
     private Node createSearchWidget() {
         Button search = new Button("Search");
         search.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 // TODO
