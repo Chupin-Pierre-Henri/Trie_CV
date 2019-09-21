@@ -20,4 +20,9 @@ Nous avons du faire trois stratégie imposé qui sont:
 nous avons du en ajouter et nous avons pensée à ajouter comme stratégie le:
 - InfTo"value" --> selectionne tous les candidats qui ont des notes inférieur à "value" car certaines fois avoir un candidat surqualifier coute chère alors que l'on à pas besoin d'une personne aussi performente. Le problème de cette stratégie c'est que normalement c'est compliqué de refuser un candidat parcequ'il est trop bon et si un humain classait les candidats il l'aurai gardé et le salaire que on lui aurai proposé serait surement trop bas par rapport à ses prétentions. &nbsp;
 
-pour éviter de rater des candidats interessants nous nous sommes dis qu'il fallait laisser l'utilisateur choisir les valeurs des strategies comme ça il peut avoir plus de liberter de recherche 
+pour éviter de rater des candidats interessants nous nous sommes dis qu'il fallait laisser l'utilisateur choisir les valeurs des strategies et de pouvoir les combinner facilement comme ça il peut avoir plus de liberter de recherche par exemple il peut rechérché facilement:
+- les canditas qui ont plus de 45 dans les compétences demandé et inférieur à 80 tous en ayant une moyenne au minimum de 55 &nbsp;
+
+Nous pensons que un humain pourrait faire un meilleur travail car nous ne prennons pas en compte la personne derrière le CV, exemple:
+- nous ne pouvons pas vérifier si il à mentie sur les différentes experience professionnelle
+- nous ne prenons pas en compte le casier judiciaire du candidat donc notre logiciel sera moins performents qu'un humains pour des métiers sensible comme juge.
