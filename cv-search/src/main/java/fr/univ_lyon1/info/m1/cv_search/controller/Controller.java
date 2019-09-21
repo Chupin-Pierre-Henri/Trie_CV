@@ -22,6 +22,7 @@ public class Controller {
 
     /**
      * receive a request and execute it.
+     *
      * @param req the Request
      */
     public void handleRequest(Request req) {
@@ -46,31 +47,31 @@ public class Controller {
         List<String> answer = new ArrayList<String>();
         answer = strategy.filter(listApplicants).getNamesOfApplicants();
 
-        for (JfxView view : views){
+        for (JfxView view : views) {
             view.addResults(answer);
         }
     }
 
     public void addNewFilter() {
-        for (JfxView view : views){
+        for (JfxView view : views) {
             view.createNewBox();
         }
     }
 
     public void addNewSkill(String text) {
-        for (JfxView view : views){
+        for (JfxView view : views) {
             view.createNewSkill(text);
         }
     }
 
     public void removeBox(int index) {
-        for (JfxView view : views){
+        for (JfxView view : views) {
             view.removeFilter(index);
         }
     }
 
     public void removeSkill(int index) {
-        for (JfxView view : views){
+        for (JfxView view : views) {
             view.removeSkill(index);
         }
     }
