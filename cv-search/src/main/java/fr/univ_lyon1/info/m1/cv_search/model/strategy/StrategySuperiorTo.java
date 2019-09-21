@@ -15,6 +15,7 @@ public class StrategySuperiorTo extends StrategyDecorator {
         super(name, value, new StrategyComponent());
     }
 
+    @Override
     protected boolean respectCriterion(Applicant a) {
         if (!super.respectCriterion(a)) {
             return false;
