@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JfxView {
-    private HBox searchSkillsBox;
-    private VBox strategicOptionsBox;
-    private VBox resultBox;
+    protected HBox searchSkillsBox;
+    protected VBox strategicOptionsBox;
+    protected VBox resultBox;
 
-    private Controller controller;
+    protected Controller controller;
 
     private final List<String> listStrategy = new ArrayList<String>() {
         {
@@ -69,10 +69,13 @@ public class JfxView {
         stage.show();
     }
 
+    protected JfxView() {
+    }
+
     /**
      * Create the Node for choising/adding a strategy.
      */
-    private Node createStrategicOptions() {
+    protected Node createStrategicOptions() {
         HBox newFilterHeadBox = new HBox();
 
         //preparing child and add it
@@ -146,7 +149,7 @@ public class JfxView {
     /**
      * Create the text field to enter a new skill.
      */
-    private Node createNewSkillWidget() {
+    protected Node createNewSkillWidget() {
         HBox newSkillBox = new HBox();
 
         //preparing children node and add it
@@ -193,7 +196,7 @@ public class JfxView {
     /**
      * Create the widget showing the list of applicants.
      */
-    private Node createResultsWidget() {
+    protected Node createResultsWidget() {
         resultBox = new VBox();
         return resultBox;
     }
@@ -201,7 +204,7 @@ public class JfxView {
     /**
      * Create the widget used to trigger the search.
      */
-    private Node createSearchWidget() {
+    protected Node createSearchWidget() {
         Button search = new Button("Search");
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -222,7 +225,7 @@ public class JfxView {
      * add all skill in searchSkillBox to the request.
      * @param request the target
      */
-    private void addSkillToRequest(Request request) {
+    protected void addSkillToRequest(Request request) {
         for (Node skill : searchSkillsBox.getChildren()) {
             // casting Node into Button for getting his value
             if (skill.getId().equals("skill") && skill instanceof Button) {
@@ -236,7 +239,7 @@ public class JfxView {
      * add all Filter in strategicOptionsBox to the request.
      * @param request the target
      */
-    private void addFilterToRequest(Request request) {
+    protected void addFilterToRequest(Request request) {
         for (Node strategy : strategicOptionsBox.getChildren()) {
             //get Node of Strategy HBox
             List<Node> listNode;
@@ -276,7 +279,7 @@ public class JfxView {
     /**
      * Create the widget showing the list of skills currently searched.
      */
-    private Node createCurrentSearchSkillsWidget() {
+    protected Node createCurrentSearchSkillsWidget() {
         searchSkillsBox = new HBox();
         return searchSkillsBox;
     }
@@ -284,7 +287,7 @@ public class JfxView {
     /**
      * Create the widget containing the different filter for search.
      */
-    private Node createCurrentFiltersWidget() {
+    protected Node createCurrentFiltersWidget() {
         strategicOptionsBox = new VBox();
         return strategicOptionsBox;
     }
