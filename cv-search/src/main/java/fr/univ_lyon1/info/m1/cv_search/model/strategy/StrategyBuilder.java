@@ -15,7 +15,7 @@ public class StrategyBuilder {
      * @param skills list of Skill
      */
     public StrategyBuilder(List<Filter> filters, List<Skill> skills) {
-        if (filters.size() > 1) {
+        if (filters.size() >= 1) {
             strategy = constructBaseStrategy(filters.get(0));
         } else {
             strategy = new StrategyComponent();

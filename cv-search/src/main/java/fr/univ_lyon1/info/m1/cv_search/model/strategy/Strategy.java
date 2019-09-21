@@ -16,6 +16,7 @@ public abstract class Strategy {
     Strategy(String name, int value) {
         this.name = name;
         this.value = value;
+        this.result = new HashMap<Applicant, Integer>();
     }
 
     /**

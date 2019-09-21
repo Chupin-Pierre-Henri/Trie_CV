@@ -1,8 +1,7 @@
 package fr.univ_lyon1.info.m1.cv_search.view;
 
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
+import fr.univ_lyon1.info.m1.cv_search.controller.Controller;
+import fr.univ_lyon1.info.m1.cv_search.controller.Request;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,19 +16,29 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JfxView {
     private HBox searchSkillsBox;
+    private VBox strategicOptionsBox;
     private VBox resultBox;
-    private ComboBox<String> strategicOption;
+
+    private Controller controller;
+
+    private final List<String> listStrategy = new ArrayList<String>() {
+        {
+            add("average");
+            add("superior");
+            add("lower");
+        }
+    };
 
     /**
      * Create the main view of the application.
      */
     public JfxView(Stage stage, int width, int height) {
+        controller = new Controller(); // TODO here or in App?
         // Name of window
         stage.setTitle("Search for CV");
 
@@ -41,13 +50,11 @@ public class JfxView {
         Node searchSkillsBox = createCurrentSearchSkillsWidget();
         root.getChildren().add(searchSkillsBox);
 
-        List<String> strategies = new ArrayList<String>();
-        strategies.add("sup50");
-        strategies.add("sup60");
-        strategies.add("moyenne50");
-        strategies.add("moyenne50AndSup30");
-        strategicOption = createStrategicOptions(strategies);
-        root.getChildren().add(strategicOption);
+        Node strategicOptionsBox = createCurrentFiltersWidget();
+        root.getChildren().add(strategicOptionsBox);
+
+        Node strategicNode = createStrategicOptions();
+        root.getChildren().add(strategicNode);
 
         Node search = createSearchWidget();
         root.getChildren().add(search);
@@ -62,11 +69,58 @@ public class JfxView {
     }
 
     /**
-     * Create the dropdown box for choising the strategy.
+     * Create the Node for choising/adding a strategy.
      */
-    private ComboBox<String> createStrategicOptions(List<String> options) {
-        ObservableList<String> opts = FXCollections.observableList(options);
-        return new ComboBox<String>(opts);
+    private Node createStrategicOptions() {
+        HBox newFilterHeadBox = new HBox();
+        Button addButton = new Button("Add Filter");
+        Label labelFilter = new Label("Filters:");
+
+        newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
+        newFilterHeadBox.setSpacing(10);
+
+        // One filter
+        HBox newFilterBox = createNewBox();
+        strategicOptionsBox.getChildren().add(newFilterBox);
+
+        EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HBox newFilterBox = createNewBox();
+                strategicOptionsBox.getChildren().add(newFilterBox);
+            }
+        };
+        addButton.setOnAction(filterHandlerAdd);
+        return newFilterHeadBox;
+    }
+
+    private HBox createNewBox() {
+        HBox newFilterBox = new HBox();
+        newFilterBox.setId("filter");
+
+        ObservableList<String> opts = FXCollections.observableList(listStrategy);
+        ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
+        Label labelValue = new Label("to value:");
+        InputArea valueField = new InputArea();
+        Button removeButton = new Button("X");
+
+        dropdownMenu.setId("type");
+        valueField.setId("value");
+
+        newFilterBox.getChildren().addAll(dropdownMenu,
+                labelValue,
+                valueField,
+                removeButton
+        );
+        newFilterBox.setSpacing(10);
+
+        removeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                strategicOptionsBox.getChildren().remove(newFilterBox);
+            }
+        });
+        return newFilterBox;
     }
 
     /**
@@ -89,6 +143,7 @@ public class JfxView {
                 }
 
                 Button skillBtn = new Button(text);
+                skillBtn.setId("skill");
                 searchSkillsBox.getChildren().add(skillBtn);
                 skillBtn.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -120,67 +175,57 @@ public class JfxView {
     private Node createSearchWidget() {
         Button search = new Button("Search");
         search.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
-                // TODO
-                ApplicantList listApplicants
-                        = new ApplicantListBuilder(new File(".")).build();
                 resultBox.getChildren().clear();
-                for (Applicant a : listApplicants) {
-                    boolean selected;
 
-                    int value = 50;
-                    switch (strategicOption.getValue()) {
-                        case "sup60":
-                            value = 60;
-                            selected = superiorToValue(a, value);
-                            break;
-                        case "sup50":
-                            selected = superiorToValue(a, value);
-                            break;
-                        case "moyenne50":
-                            selected = skillMoyenne(a, 0);
-                            break;
-                        case "moyenne50AndSup30":
-                            selected = skillMoyenne(a, 30);
-                            break;
-                        default:
-                            selected = superiorToValue(a, value);
-                            break;
-                    }
-                    if (selected) {
-                        resultBox.getChildren().add(new Label(a.getName()));
-                    }
-                }
-            }
+                // todo Refactor this method
 
-            private boolean superiorToValue(Applicant a, int value) {
+                Request request = new Request("search");
                 for (Node skill : searchSkillsBox.getChildren()) {
-                    String skillName = ((Button) skill).getText();
-                    if (a.getSkill(skillName) < value) {
-                        return false;
+                    // casting Node into Button for getting is value
+                    if (skill.getId().equals("skill") && skill instanceof Button) {
+                        // clear
+                        String text = ((Button) skill).getText();
+                        request.addSkill(text);
                     }
                 }
-                return true;
-            }
 
-            private boolean skillMoyenne(Applicant a, int value) {
-                int moyenne = 0;
-                int count = 0;
-                for (Node skill : searchSkillsBox.getChildren()) {
-                    String skillName = ((Button) skill).getText();
-                    count++;
-                    moyenne += a.getSkill(skillName);
-                    if (a.getSkill(skillName) < value) {
-                        return false;
+                for (Node strategy : strategicOptionsBox.getChildren()) {
+                    List<Node> listNode;
+                    if (strategy.getId().equals("filter") && strategy instanceof HBox) {
+                        listNode = ((HBox) strategy).getChildren();
+                    } else {
+                        listNode = new ArrayList<Node>();
                     }
-                }
-                if (count != 0) {
-                    return moyenne / count > 50;
+
+                    int value = 0;
+                    String type = "";
+                    for (Node node : listNode) {
+                        if (node.getId() != null) {
+                            switch (node.getId()) {
+                                case "type":
+                                    if (node instanceof ComboBox) {
+                                        type = ((ComboBox<String>) node).getValue();
+                                    }
+                                    break;
+                                case "value":
+                                    if (node instanceof InputArea) {
+                                        value = Integer.parseInt(((InputArea) node).getText());
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    request.addFilter(type, value);
                 }
 
-                return true;
+                List<String> answer = controller.handleRequest(request);
+                for (String name : answer) {
+                    resultBox.getChildren().add(new Label(name));
+                }
             }
         });
         return search;
@@ -193,5 +238,13 @@ public class JfxView {
     private Node createCurrentSearchSkillsWidget() {
         searchSkillsBox = new HBox();
         return searchSkillsBox;
+    }
+
+    /**
+     * Create the widget containing the different filter for search.
+     */
+    private Node createCurrentFiltersWidget() {
+        strategicOptionsBox = new VBox();
+        return strategicOptionsBox;
     }
 }

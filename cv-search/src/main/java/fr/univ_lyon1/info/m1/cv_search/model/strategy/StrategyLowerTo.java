@@ -17,6 +17,9 @@ public class StrategyLowerTo extends StrategyDecorator {
 
     @Override
     protected boolean respectCriterion(Applicant a) {
+        if (!super.respectCriterion(a)) {
+            return false;
+        }
         int weight = 0;
         List<Skill> skills = this.getSkills();
         for (Skill skill : skills) {
