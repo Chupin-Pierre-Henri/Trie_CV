@@ -14,8 +14,7 @@ public class Controller {
 
     protected Request request;
 
-    Controller() {
-
+    public Controller() {
     }
 
     /**
@@ -23,13 +22,21 @@ public class Controller {
      * @param req the Request
      * @return the answer of Request
      */
-    public List<String> receiveRequest(Request req) {
+    public List<String> handleRequest(Request req) {
         this.request = req;
+        List<String> ret = new ArrayList<String>();
 
-        return this.executeRequest();
+        if (req.getRequestType().equals("search")) {
+            ret = this.executeSearchStrategyRequest();
+        }
+        return ret;
     }
 
-    private List<String> executeRequest() {
+    /**
+     * performs search on applicants based on received filtres (strategy) and applicants' skills.
+     * @return the name of candidates meeting all the criteria requested
+     */
+    private List<String> executeSearchStrategyRequest() {
         List<String> result = new ArrayList<String>();
         StrategyBuilder stratBuild = new StrategyBuilder(request.getFilters(), request.getSkills());
         Strategy strategy = stratBuild.getStrategy();

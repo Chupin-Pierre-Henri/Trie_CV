@@ -7,28 +7,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Request {
-    protected List<Filter> filters;
+    protected String requestType;
     protected List<Skill> skills;
+    protected List<Filter> filters;
 
-    public Request() {
+    /**
+     * Create a request with a type.
+     * @param type the type of the request for the action to handle
+     */
+    public Request(String type) {
+        requestType = type;
         this.skills = new ArrayList<Skill>();
         this.filters = new ArrayList<Filter>();
     }
 
-    /**
-	 * Add a Skill.
-     * @param skill a Component to add in List's Request
-     */
-    public void addSkill(Skill skill) {
-        skills.add(skill);
+    public String getRequestType() {
+        return requestType;
     }
 
     /**
-     * Add a Filter.
-     * @param filter a Component to add in List's Request
+     * Add a Skill. Create new One.
+     * @param name the name of the Skill
      */
-    public void addFilter(Filter filter) {
-        filters.add(filter);
+    public void addSkill(String name) {
+        skills.add(new Skill(name));
+    }
+
+    /**
+     * Add a Filter. Create new One.
+     * @param name name of the Filter
+     * @param value value of the Filter
+     */
+    public void addFilter(String name, int value) {
+        filters.add(new Filter(name, value));
     }
 
     public List<Skill> getSkills() {
