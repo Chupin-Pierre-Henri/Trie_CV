@@ -37,7 +37,6 @@ public class Controller {
 
     /**
      * performs search on applicants based on received filtres (strategy) and applicants' skills.
-     * @return the name of candidates meeting all the criteria requested
      */
     private void executeSearchStrategyRequest() {
         StrategyBuilder stratBuild = new StrategyBuilder(request.getFilters(), request.getSkills());
@@ -61,21 +60,20 @@ public class Controller {
     }
 
     public void addNewSkill(String text) {
-        Button skillBtn = new Button(text);
         for (JfxView view : views){
             view.createNewSkill(text);
         }
     }
 
-    public void removeBox(HBox filterBox) {
+    public void removeBox(int index) {
         for (JfxView view : views){
-            view.removeFilter(filterBox);
+            view.removeFilter(index);
         }
     }
 
-    public void removeSkill(Button skillBtn) {
+    public void removeSkill(int index) {
         for (JfxView view : views){
-            view.removeSkill(skillBtn);
+            view.removeSkill(index);
         }
     }
 

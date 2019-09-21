@@ -111,13 +111,14 @@ public class JfxView {
         );
         newFilterBox.setSpacing(10);
 
+        strategicOptionsBox.getChildren().add(newFilterBox);
+        int index = strategicOptionsBox.getChildren().indexOf(newFilterBox);
         removeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.removeBox(newFilterBox);
+                controller.removeBox(index);
             }
         });
-        strategicOptionsBox.getChildren().add(newFilterBox);
     }
 
     /**
@@ -154,10 +155,11 @@ public class JfxView {
         Button skillBtn = new Button(text);
         skillBtn.setId("skill");
         searchSkillsBox.getChildren().add(skillBtn);
+        int index = searchSkillsBox.getChildren().indexOf(skillBtn);
         skillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.removeSkill(skillBtn);
+                controller.removeSkill(index);
             }
         });
     }
@@ -261,12 +263,12 @@ public class JfxView {
         return strategicOptionsBox;
     }
 
-    public void removeFilter(HBox filterBox) {
-        strategicOptionsBox.getChildren().remove(filterBox);
+    public void removeFilter(int index) {
+        strategicOptionsBox.getChildren().remove(index);
     }
 
-    public void removeSkill(Button skillBtn) {
-        searchSkillsBox.getChildren().remove(skillBtn);
+    public void removeSkill(int index) {
+        searchSkillsBox.getChildren().remove(index);
     }
 
     public void addResults(List<String> answer) {
