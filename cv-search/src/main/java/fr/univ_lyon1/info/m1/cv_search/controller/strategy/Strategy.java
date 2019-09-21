@@ -11,7 +11,6 @@ public abstract class Strategy {
     protected List<Skill> skills;
     private String name;
     private int value;
-    HashMap<Applicant, Integer> result;
 
     Strategy(String name, int value) {
         this.name = name;

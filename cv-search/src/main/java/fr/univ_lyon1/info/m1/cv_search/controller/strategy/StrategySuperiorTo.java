@@ -20,19 +20,12 @@ public class StrategySuperiorTo extends StrategyDecorator {
         if (!super.respectCriterion(a)) {
             return false;
         }
-        int weight = 0;
         List<Skill> skills = this.getSkills();
         for (Skill skill : skills) {
             String skillName = skill.getName();
-            weight += a.getSkill(skillName);
             if (a.getSkill(skillName) < this.getValue()) {
                 return false;
             }
-        }
-        if (skills.size() != 0) {
-            this.result.put(a, weight / skills.size());
-        } else {
-            this.result.put(a, 0);
         }
         return true;
     }
