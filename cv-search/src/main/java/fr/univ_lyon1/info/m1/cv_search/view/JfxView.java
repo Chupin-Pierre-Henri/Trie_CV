@@ -2,9 +2,6 @@ package fr.univ_lyon1.info.m1.cv_search.view;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.Controller;
 import fr.univ_lyon1.info.m1.cv_search.controller.Request;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +26,8 @@ public class JfxView {
 
     private Controller controller;
 
-    private final List<String> listStrategy = new ArrayList<String>() {{
+    private final List<String> listStrategy = new ArrayList<String>() {
+        {
             add("average");
             add("superior");
             add("lower");
@@ -53,11 +50,11 @@ public class JfxView {
         Node searchSkillsBox = createCurrentSearchSkillsWidget();
         root.getChildren().add(searchSkillsBox);
 
-        Node strategicNode = createStrategicOptions();
-        root.getChildren().add(strategicNode);
-
         Node strategicOptionsBox = createCurrentFiltersWidget();
         root.getChildren().add(strategicOptionsBox);
+
+        Node strategicNode = createStrategicOptions();
+        root.getChildren().add(strategicNode);
 
         Node search = createSearchWidget();
         root.getChildren().add(search);
@@ -79,12 +76,12 @@ public class JfxView {
         Button addButton = new Button("Add Filter");
         Label labelFilter = new Label("Filters:");
 
+        newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
+        newFilterHeadBox.setSpacing(10);
+
         // One filter
         HBox newFilterBox = createNewBox();
         strategicOptionsBox.getChildren().add(newFilterBox);
-
-        newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
-        newFilterHeadBox.setSpacing(10);
 
         EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
             @Override
@@ -99,12 +96,16 @@ public class JfxView {
 
     private HBox createNewBox() {
         HBox newFilterBox = new HBox();
+        newFilterBox.setId("filter");
 
         ObservableList<String> opts = FXCollections.observableList(listStrategy);
         ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
         Label labelValue = new Label("to value:");
         InputArea valueField = new InputArea();
         Button removeButton = new Button("X");
+
+        dropdownMenu.setId("type");
+        valueField.setId("value");
 
         newFilterBox.getChildren().addAll(dropdownMenu,
                 labelValue,
@@ -142,6 +143,7 @@ public class JfxView {
                 }
 
                 Button skillBtn = new Button(text);
+                skillBtn.setId("skill");
                 searchSkillsBox.getChildren().add(skillBtn);
                 skillBtn.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -177,15 +179,48 @@ public class JfxView {
             public void handle(ActionEvent event) {
                 resultBox.getChildren().clear();
 
+                // todo Refactor this method
+
                 Request request = new Request("search");
-                /*
                 for (Node skill : searchSkillsBox.getChildren()) {
-                    request.add(skill.getAccessibleText()); //TODO check that
+                    // casting Node into Button for getting is value
+                    if (skill.getId().equals("skill") && skill instanceof Button) {
+                        // clear
+                        String text = ((Button) skill).getText();
+                        request.addSkill(text);
+                    }
                 }
+
                 for (Node strategy : strategicOptionsBox.getChildren()) {
-                    request.add(strategy); //TODO check that
+                    List<Node> listNode;
+                    if (strategy.getId().equals("filter") && strategy instanceof HBox) {
+                        listNode = ((HBox) strategy).getChildren();
+                    } else {
+                        listNode = new ArrayList<Node>();
+                    }
+
+                    int value = 0;
+                    String type = "";
+                    for (Node node : listNode) {
+                        if (node.getId() != null) {
+                            switch (node.getId()) {
+                                case "type":
+                                    if (node instanceof ComboBox) {
+                                        type = ((ComboBox<String>) node).getValue();
+                                    }
+                                    break;
+                                case "value":
+                                    if (node instanceof InputArea) {
+                                        value = Integer.parseInt(((InputArea) node).getText());
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    request.addFilter(type, value);
                 }
-                */
 
                 List<String> answer = controller.handleRequest(request);
                 for (String name : answer) {
