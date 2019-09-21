@@ -20,6 +20,7 @@ public abstract class StrategyDecorator extends Strategy {
         deco.setSkills(skills);
     }
 
+    @Override
     protected boolean respectCriterion(Applicant a) {
         return this.deco.respectCriterion(a);
     }
