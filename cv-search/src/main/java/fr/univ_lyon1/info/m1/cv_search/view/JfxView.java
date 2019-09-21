@@ -51,11 +51,11 @@ public class JfxView {
         Node searchSkillsBox = createCurrentSearchSkillsWidget();
         root.getChildren().add(searchSkillsBox);
 
-        Node strategicOptionsBox = createCurrentFiltersWidget();
-        root.getChildren().add(strategicOptionsBox);
-
         Node strategicNode = createStrategicOptions();
         root.getChildren().add(strategicNode);
+
+        Node strategicOptionsBox = createCurrentFiltersWidget();
+        root.getChildren().add(strategicOptionsBox);
 
         Node search = createSearchWidget();
         root.getChildren().add(search);
