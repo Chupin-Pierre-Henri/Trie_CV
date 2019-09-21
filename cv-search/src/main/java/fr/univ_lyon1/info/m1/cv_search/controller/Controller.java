@@ -27,7 +27,7 @@ public class Controller {
         this.request = req;
         List<String> ret = new ArrayList<String>();
 
-        if (req.getRequestType().equals("search")){
+        if (req.getRequestType().equals("search")) {
             ret = this.executeSearchStrategyRequest();
         }
         return ret;
