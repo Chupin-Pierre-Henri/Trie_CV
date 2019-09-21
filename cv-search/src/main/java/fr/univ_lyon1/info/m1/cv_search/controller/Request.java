@@ -11,6 +11,10 @@ public class Request {
     protected List<Skill> skills;
     protected List<Filter> filters;
 
+    /**
+     * Create a request with a type.
+     * @param type the type of the request for the action to handle
+     */
     public Request(String type) {
         requestType = type;
         this.skills = new ArrayList<Skill>();
