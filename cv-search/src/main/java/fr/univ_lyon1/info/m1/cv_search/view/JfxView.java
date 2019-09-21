@@ -39,6 +39,7 @@ public class JfxView {
      */
     public JfxView(Controller controller, Stage stage, int width, int height) {
         this.controller = controller;
+        this.controller.addView(this);
         // Name of window
         stage.setTitle("Search for CV");
 
@@ -79,25 +80,21 @@ public class JfxView {
         newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
         newFilterHeadBox.setSpacing(10);
 
-        // One filter
-        HBox newFilterBox = createNewBox();
-        strategicOptionsBox.getChildren().add(newFilterBox);
-
         EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HBox newFilterBox = createNewBox();
-                strategicOptionsBox.getChildren().add(newFilterBox);
+                controller.addNewFilter();
             }
         };
         addButton.setOnAction(filterHandlerAdd);
         return newFilterHeadBox;
     }
 
-    private HBox createNewBox() {
+    public void createNewBox() {
         HBox newFilterBox = new HBox();
         newFilterBox.setId("filter");
 
+        //create the children
         ObservableList<String> opts = FXCollections.observableList(listStrategy);
         ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
         Label labelValue = new Label("to value:");
@@ -117,10 +114,10 @@ public class JfxView {
         removeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                strategicOptionsBox.getChildren().remove(newFilterBox);
+                controller.removeBox(newFilterBox);
             }
         });
-        return newFilterBox;
+        strategicOptionsBox.getChildren().add(newFilterBox);
     }
 
     /**
@@ -142,15 +139,7 @@ public class JfxView {
                     return; // Do nothing
                 }
 
-                Button skillBtn = new Button(text);
-                skillBtn.setId("skill");
-                searchSkillsBox.getChildren().add(skillBtn);
-                skillBtn.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        searchSkillsBox.getChildren().remove(skillBtn);
-                    }
-                });
+                controller.addNewSkill(text);
 
                 textField.setText("");
                 textField.requestFocus();
@@ -159,6 +148,18 @@ public class JfxView {
         submitButton.setOnAction(skillHandler);
         textField.setOnAction(skillHandler);
         return newSkillBox;
+    }
+
+    public void createNewSkill(String text) {
+        Button skillBtn = new Button(text);
+        skillBtn.setId("skill");
+        searchSkillsBox.getChildren().add(skillBtn);
+        skillBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.removeSkill(skillBtn);
+            }
+        });
     }
 
     /**
@@ -183,10 +184,7 @@ public class JfxView {
                 addSkillToRequest(request);
                 addFilterToRequest(request);
 
-                List<String> answer = controller.handleRequest(request);
-                for (String name : answer) {
-                    resultBox.getChildren().add(new Label(name));
-                }
+                controller.handleRequest(request);
             }
         });
         return search;
@@ -261,5 +259,19 @@ public class JfxView {
     private Node createCurrentFiltersWidget() {
         strategicOptionsBox = new VBox();
         return strategicOptionsBox;
+    }
+
+    public void removeFilter(HBox filterBox) {
+        strategicOptionsBox.getChildren().remove(filterBox);
+    }
+
+    public void removeSkill(Button skillBtn) {
+        searchSkillsBox.getChildren().remove(skillBtn);
+    }
+
+    public void addResults(List<String> answer) {
+        for (String name : answer) {
+            resultBox.getChildren().add(new Label(name));
+        }
     }
 }
