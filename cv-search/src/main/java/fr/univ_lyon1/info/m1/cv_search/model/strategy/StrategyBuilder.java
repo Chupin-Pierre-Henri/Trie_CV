@@ -52,6 +52,9 @@ public class StrategyBuilder {
             case "average":
                 ret = new StrategyMoy(name,value,decoring);
                 break;
+            case "lower":
+                ret = new StrategyLowerTo(name,value,decoring);
+                break;
             default:
                 ret = decoring;
         }
