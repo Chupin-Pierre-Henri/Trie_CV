@@ -186,7 +186,7 @@ public class JfxView {
     }
 
     /**
-     * create a new skill with name
+     * create a new skill with name.
      * @param text the name of the skill to add
      */
     public void createNewSkill(String text) {
@@ -313,6 +313,10 @@ public class JfxView {
         searchSkillsBox.getChildren().remove(index);
     }
 
+    /**
+     * add the candidates who pass the filters.
+     * @param answer list of names that are to be added to the resultBox
+     */
     public void addResults(List<String> answer) {
         for (String name : answer) {
             resultBox.getChildren().add(new Label(name));
