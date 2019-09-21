@@ -86,6 +86,7 @@ public class ApplicantBuilder {
                 experiences.add(experience);
             }
         }
+        a.setExperiences(experiences);
 
         return a;
     }

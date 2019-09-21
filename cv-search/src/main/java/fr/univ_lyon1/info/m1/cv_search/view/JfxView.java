@@ -85,7 +85,7 @@ public class JfxView {
         Button addButton = new Button("Add Filter");
         Label labelFilter = new Label("Filters:");
 
-        newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
+        newFilterHeadBox.getChildren().addAll(labelFilter, addButton);
         newFilterHeadBox.setSpacing(10);
 
         //event part
