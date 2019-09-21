@@ -11,10 +11,17 @@ public class StrategyMoy extends StrategyDecorator {
 
     StrategyMoy(String name, int value, Strategy deco) {
         super(name, value, deco);
+        this.result = new HashMap<Applicant, Integer>();
+
     }
 
     StrategyMoy(String name, int value) {
         super(name, value, new StrategyComponent());
+        this.result = new HashMap<Applicant, Integer>();
+    }
+
+    public HashMap<Applicant, Integer> getResult() {
+        return result;
     }
 
     @Override

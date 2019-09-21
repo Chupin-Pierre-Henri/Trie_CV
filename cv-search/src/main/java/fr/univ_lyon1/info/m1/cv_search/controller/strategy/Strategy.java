@@ -15,7 +15,6 @@ public abstract class Strategy {
     Strategy(String name, int value) {
         this.name = name;
         this.value = value;
-        this.result = new HashMap<Applicant, Integer>();
     }
 
     /**
@@ -46,10 +45,6 @@ public abstract class Strategy {
 
     public int getValue() {
         return value;
-    }
-
-    public HashMap<Applicant, Integer> getResult() {
-        return result;
     }
 
     public List<Skill> getSkills() {
