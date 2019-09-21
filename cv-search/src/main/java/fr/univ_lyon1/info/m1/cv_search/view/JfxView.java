@@ -70,7 +70,8 @@ public class JfxView {
     }
 
     /**
-     * Create the Node for choising/adding a strategy.
+     * Create the Node for adding/deleting a Filter.
+     * @return Node for adding/deleting a Filter
      */
     private Node createStrategicOptions() {
         HBox newFilterHeadBox = new HBox();
@@ -93,6 +94,9 @@ public class JfxView {
         return newFilterHeadBox;
     }
 
+    /**
+     * create a new hbox in the view.
+     */
     public void createNewBox() {
         HBox newFilterBox = new HBox();
         newFilterBox.setId("filter");
@@ -138,13 +142,14 @@ public class JfxView {
         removeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.removeBox(index);
+                controller.removeFilter(index);
             }
         });
     }
 
     /**
      * Create the text field to enter a new skill.
+     * @return Node with the text field to enter a new skill
      */
     private Node createNewSkillWidget() {
         HBox newSkillBox = new HBox();
@@ -177,6 +182,10 @@ public class JfxView {
         return newSkillBox;
     }
 
+    /**
+     * create a new skill with name
+     * @param text the name of the skill to add
+     */
     public void createNewSkill(String text) {
         Button skillBtn = new Button(text);
         skillBtn.setId("skill");
@@ -192,6 +201,7 @@ public class JfxView {
 
     /**
      * Create the widget showing the list of applicants.
+     * @return Node
      */
     private Node createResultsWidget() {
         resultBox = new VBox();
@@ -200,6 +210,7 @@ public class JfxView {
 
     /**
      * Create the widget used to trigger the search.
+     * @return Node
      */
     private Node createSearchWidget() {
         Button search = new Button("Search");
@@ -275,6 +286,7 @@ public class JfxView {
 
     /**
      * Create the widget showing the list of skills currently searched.
+     * @return Node
      */
     private Node createCurrentSearchSkillsWidget() {
         searchSkillsBox = new HBox();
@@ -283,6 +295,7 @@ public class JfxView {
 
     /**
      * Create the widget containing the different filter for search.
+     * @return Node
      */
     private Node createCurrentFiltersWidget() {
         strategicOptionsBox = new VBox();
@@ -303,6 +316,12 @@ public class JfxView {
         }
     }
 
+    /**
+     * Change the type of the comboBox.
+     * @param indexOfComboBox the index in the ComboBox
+     * @param index the index in the strategicOptionsBox
+     * @param type the filter name to change
+     */
     public void changeTypeOnComboBox(int indexOfComboBox, int index, String type) {
         Node filterBox = strategicOptionsBox.getChildren().get(index);
         if (filterBox instanceof HBox) {
@@ -313,6 +332,12 @@ public class JfxView {
         }
     }
 
+    /**
+     * Change the type of the comboBox.
+     * @param indexOfComboBox the index in the ComboBox
+     * @param index the index in the strategicOptionsBox
+     * @param text the filter name to change
+     */
     public void changeValueOnComboBox(int indexOfComboBox, int index, String text) {
         Node filterBox = strategicOptionsBox.getChildren().get(index);
         if (filterBox instanceof HBox) {
