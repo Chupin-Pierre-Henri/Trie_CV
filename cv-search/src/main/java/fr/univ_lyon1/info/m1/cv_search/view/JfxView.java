@@ -37,8 +37,8 @@ public class JfxView {
     /**
      * Create the main view of the application.
      */
-    public JfxView(Stage stage, int width, int height) {
-        controller = new Controller(); // TODO here or in App?
+    public JfxView(Controller controller, Stage stage, int width, int height) {
+        this.controller = controller;
         // Name of window
         stage.setTitle("Search for CV");
 
@@ -179,48 +179,9 @@ public class JfxView {
             public void handle(ActionEvent event) {
                 resultBox.getChildren().clear();
 
-                // todo Refactor this method
-
                 Request request = new Request("search");
-                for (Node skill : searchSkillsBox.getChildren()) {
-                    // casting Node into Button for getting is value
-                    if (skill.getId().equals("skill") && skill instanceof Button) {
-                        // clear
-                        String text = ((Button) skill).getText();
-                        request.addSkill(text);
-                    }
-                }
-
-                for (Node strategy : strategicOptionsBox.getChildren()) {
-                    List<Node> listNode;
-                    if (strategy.getId().equals("filter") && strategy instanceof HBox) {
-                        listNode = ((HBox) strategy).getChildren();
-                    } else {
-                        listNode = new ArrayList<Node>();
-                    }
-
-                    int value = 0;
-                    String type = "";
-                    for (Node node : listNode) {
-                        if (node.getId() != null) {
-                            switch (node.getId()) {
-                                case "type":
-                                    if (node instanceof ComboBox) {
-                                        type = ((ComboBox<String>) node).getValue();
-                                    }
-                                    break;
-                                case "value":
-                                    if (node instanceof InputArea) {
-                                        value = Integer.parseInt(((InputArea) node).getText());
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                    request.addFilter(type, value);
-                }
+                addSkillToRequest(request);
+                addFilterToRequest(request);
 
                 List<String> answer = controller.handleRequest(request);
                 for (String name : answer) {
@@ -232,8 +193,62 @@ public class JfxView {
     }
 
     /**
-     * Create the widget showing the list of skills currently searched
-     * for.
+     * add all skill in searchSkillBox to the request.
+     * @param request the target
+     */
+    private void addSkillToRequest(Request request) {
+        for (Node skill : searchSkillsBox.getChildren()) {
+            // casting Node into Button for getting his value
+            if (skill.getId().equals("skill") && skill instanceof Button) {
+                String text = ((Button) skill).getText();
+                request.addSkill(text);
+            }
+        }
+    }
+
+    /**
+     * add all Filter in strategicOptionsBox to the request.
+     * @param request the target
+     */
+    private void addFilterToRequest(Request request) {
+        for (Node strategy : strategicOptionsBox.getChildren()) {
+            //get Node of Strategy HBox
+            List<Node> listNode;
+            if (strategy.getId().equals("filter") && strategy instanceof HBox) {
+                listNode = ((HBox) strategy).getChildren();
+            } else {
+                listNode = new ArrayList<Node>();
+            }
+
+            int value = 0;
+            String type = "";
+            for (Node node : listNode) {
+                //search for the good node for value and type of Filter
+                if (node.getId() != null) {
+                    switch (node.getId()) {
+                        case "type":
+                            if (node instanceof ComboBox) {
+                                //cast node in ComboBox for getting his value
+                                type = ((ComboBox<String>) node).getValue();
+                            }
+                            break;
+                        case "value":
+                            if (node instanceof InputArea) {
+                                //cast node in InputArea for getting his text
+                                value = Integer.parseInt(((InputArea) node).getText());
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            request.addFilter(type, value);
+        }
+    }
+
+    /**
+     * Create the widget showing the list of skills currently searched.
      */
     private Node createCurrentSearchSkillsWidget() {
         searchSkillsBox = new HBox();
