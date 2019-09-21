@@ -8,6 +8,13 @@ public class Experience {
     private String end;
     private List<String> keywords;
 
+    /**
+     * constructor of an Applicant Experiences.
+     * @param company the company name
+     * @param start date of start
+     * @param end date of end if exist
+     * @param keywords get the differents technos
+     */
     public Experience(String company, String start, String end, List<String> keywords) {
         this.company = company;
         this.start = start;
