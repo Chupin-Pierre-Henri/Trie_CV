@@ -52,40 +52,68 @@ public class Controller {
         }
     }
 
+    /**
+     * the controller adds for all the view a filter.
+     */
     public void addNewFilter() {
         for (JfxView view : views) {
             view.createNewBox();
         }
     }
 
+    /**
+     * the controller adds for all the view a skill.
+     */
     public void addNewSkill(String text) {
         for (JfxView view : views) {
             view.createNewSkill(text);
         }
     }
 
-    public void removeBox(int index) {
+    /**
+     * the controller remove for all the view the filter.
+     */
+    public void removeFilter(int index) {
         for (JfxView view : views) {
             view.removeFilter(index);
         }
     }
 
+    /**
+     * the controller remove for all the view the Skill.
+     */
     public void removeSkill(int index) {
         for (JfxView view : views) {
             view.removeSkill(index);
         }
     }
 
+    /**filter
+     * add new view.
+     * @param view to add
+     */
     public void addView(JfxView view) {
         this.views.add(view);
     }
 
+    /**
+     * the controller change for all the view the type.
+     * @param indexOfComboBox the index in the ComboBox
+     * @param index the index in the strategicOptionsBox
+     * @param value the filter name to change
+     */
     public void changeType(int indexOfComboBox, int index, String value) {
         for (JfxView view : views) {
             view.changeTypeOnComboBox(indexOfComboBox, index, value);
         }
     }
 
+    /**
+     * the controller change for all the view the type.
+     * @param indexOfComboBox the index in the ComboBox
+     * @param index the index in the strategicOptionsBox
+     * @param value the Value name to change
+     */
     public void changeValue(int indexOfComboBox, int index, String value) {
         for (JfxView view : views) {
             view.changeValueOnComboBox(indexOfComboBox, index, value);
