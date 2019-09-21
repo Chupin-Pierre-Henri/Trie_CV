@@ -1,12 +1,9 @@
 package fr.univ_lyon1.info.m1.cv_search.controller;
 
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,7 +72,7 @@ public class ControllerTest {
             return resultat.get(i);
         }
 
-        public void addResults(List<String> answer) {
+        public void addResults(List<String> answer, List<List> answerExperience) {
             for (String name : answer) {
                 resultat.add(name);
             }
