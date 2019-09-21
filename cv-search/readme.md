@@ -3,14 +3,11 @@ The description of the Project
 Un recruteur veut pouvoir selectionner des candidats selon certains critère de compétence comme par exemple leur compétence en C et apliquer un filtre sur sa recherche comme par exemple avoir une note suppérieur à 50 dans la compétence demandé. &nbsp; 
 
 Pour ce faire nous avons à disposition un projet maven qui est fonctionel et que nous avons du améliorée avec plus de fonctionallité possible et une meilleure architecture. &nbsp;
+ &nbsp;
+ 
+L'éthique
+ -
 
-Une section « éthique » où vous expliquerez les choix que vous avez
-fait en terme de stratégie de sélection de CV : comment vous
-assurez-vous que vous choisissez les bons CV, et que vous ne ratez
-pas de canidat intéressant (en particulier, pourrait-on accuser
-votre algorithme de discrimination ?) ? L'algorithme peut-il être
-mis en défaut dans des cas où un humain aurait fait un meilleur
-travail ? Si oui, donnez des exemples et justifiez. &nbsp;
 
 Nous avons du faire trois stratégie imposé qui sont:
 - superiorTo50 --> selectionne tous les candidats qui ont des notes dans les critères demandés 
@@ -26,3 +23,8 @@ pour éviter de rater des candidats interessants nous nous sommes dis qu'il fall
 Nous pensons que un humain pourrait faire un meilleur travail car nous ne prennons pas en compte la personne derrière le CV, exemple:
 - nous ne pouvons pas vérifier si il à mentie sur les différentes experience professionnelle
 - nous ne prenons pas en compte le casier judiciaire du candidat donc notre logiciel sera moins performents qu'un humains pour des métiers sensible comme juge.
+
+
+Les Tests
+-
+nous avons tester l'interface graphique de façon manuels afin de vérifier si la view s'affiche correctement et que les boutons et les noms des candidats sont bien affiché au bonne endroit.
