@@ -341,7 +341,7 @@ public class JfxView {
             List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
             for (Map<String, Object> applicantExperience : applicantExperiences) {
                 //create the box of one experience
-                HBox experienceBox = new HBox();
+                VBox experienceBox = new VBox();
 
                 String company = "";
                 String start = "";
@@ -371,19 +371,19 @@ public class JfxView {
                 }
 
                 //add header
-                header.getChildren().add(new Label("company"));
+                header.getChildren().add(new Label(" company : "));
                 header.getChildren().add(new Label(company));
-                header.getChildren().add(new Label("start"));
+                header.getChildren().add(new Label(" start : "));
                 header.getChildren().add(new Label(start));
                 if (!end.equals("")) {
-                    header.getChildren().add(new Label("end"));
+                    header.getChildren().add(new Label(" end : "));
                     header.getChildren().add(new Label(end));
                 }
                 experienceBox.getChildren().add(header);
 
                 //add keyword
                 if (!keywords.isEmpty()) {
-                    keywordsBody.getChildren().add(new Label("keywords"));
+                    keywordsBody.getChildren().add(new Label(" keywords : "));
 
                     VBox keywordBox = new VBox();
                     for (String keyword : keywords) {
