@@ -22,19 +22,20 @@ public class Request {
     }
 
     /**
-	 * Add a Skill.
-     * @param skill a Component to add in List's Request
+     * Add a Skill. Create new One.
+     * @param name the name of the Skill
      */
-    public void addSkill(Skill skill) {
-        skills.add(skill);
+    public void addSkill(String name) {
+        skills.add(new Skill(name));
     }
 
     /**
-     * Add a Filter.
-     * @param filter a Component to add in List's Request
+     * Add a Filter. Create new One.
+     * @param name name of the Filter
+     * @param value value of the Filter
      */
-    public void addFilter(Filter filter) {
-        filters.add(filter);
+    public void addFilter(String name, int value) {
+        filters.add(new Filter(name, value));
     }
 
     public List<Skill> getSkills() {
