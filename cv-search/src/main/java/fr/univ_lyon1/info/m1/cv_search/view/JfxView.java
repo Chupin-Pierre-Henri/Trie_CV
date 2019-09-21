@@ -37,8 +37,8 @@ public class JfxView {
     /**
      * Create the main view of the application.
      */
-    public JfxView(Stage stage, int width, int height) {
-        controller = new Controller(); // TODO here or in App?
+    public JfxView(Controller controller, Stage stage, int width, int height) {
+        this.controller = controller;
         // Name of window
         stage.setTitle("Search for CV");
 
@@ -193,8 +193,8 @@ public class JfxView {
     }
 
     /**
-     * add all skill in searchSkillBox to the request
-     * @param request
+     * add all skill in searchSkillBox to the request.
+     * @param request the target
      */
     private void addSkillToRequest(Request request) {
         for (Node skill : searchSkillsBox.getChildren()) {
@@ -207,8 +207,8 @@ public class JfxView {
     }
 
     /**
-     * add all Filter in strategicOptionsBox to the request
-     * @param request
+     * add all Filter in strategicOptionsBox to the request.
+     * @param request the target
      */
     private void addFilterToRequest(Request request) {
         for (Node strategy : strategicOptionsBox.getChildren()) {
