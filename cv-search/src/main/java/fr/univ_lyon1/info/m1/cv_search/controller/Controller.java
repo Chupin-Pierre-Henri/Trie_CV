@@ -1,12 +1,10 @@
 package fr.univ_lyon1.info.m1.cv_search.controller;
 
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
-import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
 import fr.univ_lyon1.info.m1.cv_search.controller.strategy.Strategy;
 import fr.univ_lyon1.info.m1.cv_search.controller.strategy.StrategyBuilder;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
+import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,5 +77,17 @@ public class Controller {
 
     public void addView(JfxView view) {
         this.views.add(view);
+    }
+
+    public void changeType(int indexOfComboBox, int index, String value) {
+        for (JfxView view : views) {
+            view.changeTypeOnComboBox(indexOfComboBox, index, value);
+        }
+    }
+
+    public void changeValue(int indexOfComboBox, int index, String value) {
+        for (JfxView view : views) {
+            view.changeValueOnComboBox(indexOfComboBox, index, value);
+        }
     }
 }
