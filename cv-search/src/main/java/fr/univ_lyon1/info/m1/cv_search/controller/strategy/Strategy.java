@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model.strategy;
+package fr.univ_lyon1.info.m1.cv_search.controller.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
@@ -16,6 +16,7 @@ public abstract class Strategy {
     Strategy(String name, int value) {
         this.name = name;
         this.value = value;
+        this.result = new HashMap<Applicant, Integer>();
     }
 
     /**

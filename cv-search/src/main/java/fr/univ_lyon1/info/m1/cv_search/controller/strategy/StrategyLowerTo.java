@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model.strategy;
+package fr.univ_lyon1.info.m1.cv_search.controller.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
@@ -17,6 +17,9 @@ public class StrategyLowerTo extends StrategyDecorator {
 
     @Override
     protected boolean respectCriterion(Applicant a) {
+        if (!super.respectCriterion(a)) {
+            return false;
+        }
         int weight = 0;
         List<Skill> skills = this.getSkills();
         for (Skill skill : skills) {

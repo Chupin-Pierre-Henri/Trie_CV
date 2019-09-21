@@ -5,13 +5,13 @@ public interface Component {
 	 * if is Filter.
      * @return true if is Filter false else
      */
-    public boolean isFilter();
+    boolean isFilter();
 
     /**
 	 * if is Skill.
      * @return true if is Skill false else
      */
-    public boolean isSkill();
+    boolean isSkill();
 
-    public String getName();
+    String getName();
 }

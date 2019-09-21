@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model.strategy;
+package fr.univ_lyon1.info.m1.cv_search.controller.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Filter;
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
@@ -15,7 +15,7 @@ public class StrategyBuilder {
      * @param skills list of Skill
      */
     public StrategyBuilder(List<Filter> filters, List<Skill> skills) {
-        if (filters.size() > 1) {
+        if (filters.size() >= 1) {
             strategy = constructBaseStrategy(filters.get(0));
         } else {
             strategy = new StrategyComponent();
@@ -51,6 +51,9 @@ public class StrategyBuilder {
                 break;
             case "average":
                 ret = new StrategyMoy(name,value,decoring);
+                break;
+            case "lower":
+                ret = new StrategyLowerTo(name,value,decoring);
                 break;
             default:
                 ret = decoring;
