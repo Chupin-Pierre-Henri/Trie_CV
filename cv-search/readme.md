@@ -18,4 +18,6 @@ Nous avons du faire trois stratégie imposé qui sont:
 - Moyenne
 
 nous avons du en ajouter et nous avons pensée à ajouter comme stratégie le:
-- superiorTo50InfTo80 --> selectionne tous les candidats qui ont des notes supérior à 50 mais inférieur à 80 car certaines fois avoir un candidat surqualifier coute chère alors que l'on à pas besoin d'une personne aussi performente. Le problème de cette stratégie c'est que normalement c'est compliqué de refuser un candidat parcequ'il est trop bon et si un humain classait les candidats il l'aurai gardé et le salaire que on lui aurai proposé serait surement trop bas par rapport à ses prétentions.
+- InfTo"value" --> selectionne tous les candidats qui ont des notes inférieur à "value" car certaines fois avoir un candidat surqualifier coute chère alors que l'on à pas besoin d'une personne aussi performente. Le problème de cette stratégie c'est que normalement c'est compliqué de refuser un candidat parcequ'il est trop bon et si un humain classait les candidats il l'aurai gardé et le salaire que on lui aurai proposé serait surement trop bas par rapport à ses prétentions. &nbsp;
+
+pour éviter de rater des candidats interessants nous nous sommes dis qu'il fallait laisser l'utilisateur choisir les valeurs des strategies comme ça il peut avoir plus de liberter de recherche 
