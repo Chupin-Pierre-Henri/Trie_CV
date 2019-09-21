@@ -77,12 +77,15 @@ public class JfxView {
      */
     protected Node createStrategicOptions() {
         HBox newFilterHeadBox = new HBox();
+
+        //preparing child and add it
         Button addButton = new Button("Add Filter");
         Label labelFilter = new Label("Filters:");
 
         newFilterHeadBox.getChildren().addAll(addButton, labelFilter);
         newFilterHeadBox.setSpacing(10);
 
+        //event part
         EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -97,7 +100,7 @@ public class JfxView {
         HBox newFilterBox = new HBox();
         newFilterBox.setId("filter");
 
-        //create the children
+        //create the children and add it
         ObservableList<String> opts = FXCollections.observableList(listStrategy);
         ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
         Label labelValue = new Label("to value:");
@@ -107,7 +110,6 @@ public class JfxView {
         dropdownMenu.setId("type");
         valueField.setId("value");
 
-        //add children
         newFilterBox.getChildren().addAll(dropdownMenu,
                 labelValue,
                 valueField,
@@ -115,7 +117,7 @@ public class JfxView {
         );
         newFilterBox.setSpacing(10);
 
-        //add to the bigger part
+        //add filter to the bigger node
         strategicOptionsBox.getChildren().add(newFilterBox);
         int indexOfComboBox = newFilterBox.getChildren().indexOf(dropdownMenu);
         int indexOfInputArea = newFilterBox.getChildren().indexOf(valueField);
@@ -149,12 +151,16 @@ public class JfxView {
      */
     protected Node createNewSkillWidget() {
         HBox newSkillBox = new HBox();
+
+        //preparing children node and add it
         Label labelSkill = new Label("Skill:");
         TextField textField = new TextField();
         Button submitButton = new Button("Add skill");
+
         newSkillBox.getChildren().addAll(labelSkill, textField, submitButton);
         newSkillBox.setSpacing(10);
 
+        // event part
         EventHandler<ActionEvent> skillHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
