@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JfxView {
     protected HBox searchSkillsBox;
@@ -74,6 +75,7 @@ public class JfxView {
 
     /**
      * Create the Node for adding/deleting a Filter.
+     *
      * @return Node for adding/deleting a Filter
      */
     protected Node createStrategicOptions() {
@@ -152,6 +154,7 @@ public class JfxView {
 
     /**
      * Create the text field to enter a new skill.
+     *
      * @return Node with the text field to enter a new skill
      */
     protected Node createNewSkillWidget() {
@@ -187,6 +190,7 @@ public class JfxView {
 
     /**
      * create a new skill with name.
+     *
      * @param text the name of the skill to add
      */
     public void createNewSkill(String text) {
@@ -204,6 +208,7 @@ public class JfxView {
 
     /**
      * Create the widget showing the list of applicants.
+     *
      * @return Node
      */
     protected Node createResultsWidget() {
@@ -213,6 +218,7 @@ public class JfxView {
 
     /**
      * Create the widget used to trigger the search.
+     *
      * @return Node
      */
     protected Node createSearchWidget() {
@@ -234,6 +240,7 @@ public class JfxView {
 
     /**
      * add all skill in searchSkillBox to the request.
+     *
      * @param request the target
      */
     protected void addSkillToRequest(Request request) {
@@ -248,6 +255,7 @@ public class JfxView {
 
     /**
      * add all Filter in strategicOptionsBox to the request.
+     *
      * @param request the target
      */
     protected void addFilterToRequest(Request request) {
@@ -289,6 +297,7 @@ public class JfxView {
 
     /**
      * Create the widget showing the list of skills currently searched.
+     *
      * @return Node
      */
     protected Node createCurrentSearchSkillsWidget() {
@@ -298,6 +307,7 @@ public class JfxView {
 
     /**
      * Create the widget containing the different filter for search.
+     *
      * @return Node
      */
     protected Node createCurrentFiltersWidget() {
@@ -315,19 +325,87 @@ public class JfxView {
 
     /**
      * add the candidates who pass the filters.
-     * @param answer list of names that are to be added to the resultBox
+     *
+     * @param answer                      list of names that are to be added to the resultBox
+     * @param answerApplicantsExperiences map of applicant and his experiences
      */
-    public void addResults(List<String> answer) {
+    public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
         for (String name : answer) {
-            resultBox.getChildren().add(new Label(name));
+
+            HBox applicant = new HBox();
+            applicant.getChildren().add(new Label(name));
+
+            //create the box of all experiences
+            VBox experiencesBox = new VBox();
+
+            List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
+            for (Map<String, Object> applicantExperience : applicantExperiences) {
+                //create the box of one experience
+                VBox experienceBox = new VBox();
+
+                String company = "";
+                String start = "";
+                String end = "";
+                List<String> keywords = new ArrayList<String>();
+                //children of an experience box
+                HBox header = new HBox();
+                HBox keywordsBody = new HBox();
+
+                for (String type : applicantExperience.keySet()) {
+                    switch (type) {
+                        case "company":
+                            company = (String) applicantExperience.get(type);
+                            break;
+                        case "start":
+                            start = (String) applicantExperience.get(type);
+                            break;
+                        case "end":
+                            end = (String) applicantExperience.get(type);
+                            break;
+                        case "keywords":
+                            keywords = (List<String>) applicantExperience.get(type);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                //add header
+                header.getChildren().add(new Label(" company : "));
+                header.getChildren().add(new Label(company));
+                header.getChildren().add(new Label(" start : "));
+                header.getChildren().add(new Label(start));
+                if (!end.equals("")) {
+                    header.getChildren().add(new Label(" end : "));
+                    header.getChildren().add(new Label(end));
+                }
+                experienceBox.getChildren().add(header);
+
+                //add keyword
+                if (!keywords.isEmpty()) {
+                    keywordsBody.getChildren().add(new Label(" keywords : "));
+
+                    VBox keywordBox = new VBox();
+                    for (String keyword : keywords) {
+                        keywordBox.getChildren().add(new Label("* " + keyword));
+                    }
+                    keywordsBody.getChildren().add(keywordBox);
+                }
+                experienceBox.getChildren().add(keywordsBody);
+                experiencesBox.getChildren().add(experienceBox);
+            }
+
+            applicant.getChildren().add(experiencesBox);
+            resultBox.getChildren().add(applicant);
         }
     }
 
     /**
      * Change the type of the comboBox.
+     *
      * @param indexOfComboBox the index in the ComboBox
-     * @param index the index in the strategicOptionsBox
-     * @param type the filter name to change
+     * @param index           the index in the strategicOptionsBox
+     * @param type            the filter name to change
      */
     public void changeTypeOnComboBox(int indexOfComboBox, int index, String type) {
         Node filterBox = strategicOptionsBox.getChildren().get(index);
@@ -341,9 +419,10 @@ public class JfxView {
 
     /**
      * Change the type of the comboBox.
+     *
      * @param indexOfComboBox the index in the ComboBox
-     * @param index the index in the strategicOptionsBox
-     * @param text the filter name to change
+     * @param index           the index in the strategicOptionsBox
+     * @param text            the filter name to change
      */
     public void changeValueOnComboBox(int indexOfComboBox, int index, String text) {
         Node filterBox = strategicOptionsBox.getChildren().get(index);

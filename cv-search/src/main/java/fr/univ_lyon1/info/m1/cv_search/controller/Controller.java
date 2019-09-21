@@ -9,6 +9,7 @@ import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
 
@@ -44,11 +45,11 @@ public class Controller {
                 = new ApplicantListBuilder(new File(".")).build();
 
 
-        List<String> answer = new ArrayList<String>();
-        answer = strategy.filter(listApplicants).getNamesOfApplicants();
-
+        ApplicantList selectedApplicants = strategy.filter(listApplicants);
+        List<String> answer = selectedApplicants.getNamesOfApplicants();
+        Map<String, List> answerExperience = selectedApplicants.getExperiencesOfApplicants();
         for (JfxView view : views) {
-            view.addResults(answer);
+            view.addResults(answer, answerExperience);
         }
     }
 
@@ -88,8 +89,9 @@ public class Controller {
         }
     }
 
-    /**filter
-     * add new view.
+    /**
+     * filter add new view.
+     *
      * @param view to add
      */
     public void addView(JfxView view) {
@@ -98,9 +100,10 @@ public class Controller {
 
     /**
      * the controller change for all the view the type.
+     *
      * @param indexOfComboBox the index in the ComboBox
-     * @param index the index in the strategicOptionsBox
-     * @param value the filter name to change
+     * @param index           the index in the strategicOptionsBox
+     * @param value           the filter name to change
      */
     public void changeType(int indexOfComboBox, int index, String value) {
         for (JfxView view : views) {
@@ -110,9 +113,10 @@ public class Controller {
 
     /**
      * the controller change for all the view the type.
+     *
      * @param indexOfComboBox the index in the ComboBox
-     * @param index the index in the strategicOptionsBox
-     * @param value the Value name to change
+     * @param index           the index in the strategicOptionsBox
+     * @param value           the Value name to change
      */
     public void changeValue(int indexOfComboBox, int index, String value) {
         for (JfxView view : views) {
