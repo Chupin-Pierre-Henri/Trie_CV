@@ -26,10 +26,21 @@ public class StrategyBuilder {
         strategy.setSkills(skills);
     }
 
+    /**
+     * decorate strategy with base strategy component.
+     * @param filter the filter of the strategy to apply
+     * @return the strategy to apply
+     */
     private Strategy constructBaseStrategy(Filter filter) {
         return constructStrategy(filter, new StrategyComponent());
     }
 
+    /**
+     * decorate strategy with decoring parameter.
+     * @param filter the filter of the strategy to apply
+     * @param decoring the decorator to apply to the filter strategy
+     * @return the strategy to apply
+     */
     private Strategy constructStrategy(Filter filter, Strategy decoring) {
         Strategy ret;
         String name = filter.getName();

@@ -33,6 +33,11 @@ public abstract class Strategy {
         return result;
     }
 
+    /**
+     * Chech if the applicant meets the criteria of the strategy.
+     * @param a the applicant test
+     * @return true if applicant respect the criteria  and false esle
+     */
     protected abstract boolean respectCriterion(Applicant a);
 
     public String getName() {

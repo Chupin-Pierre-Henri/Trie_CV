@@ -29,6 +29,10 @@ public class Controller {
         return this.executeRequest();
     }
 
+    /**
+     * performs search on applicants based on received filtres (strategy) and applicants' skills.
+     * @return the name of candidates meeting all the criteria requested
+     */
     private List<String> executeRequest() {
         List<String> result = new ArrayList<String>();
         StrategyBuilder stratBuild = new StrategyBuilder(request.getFilters(), request.getSkills());
