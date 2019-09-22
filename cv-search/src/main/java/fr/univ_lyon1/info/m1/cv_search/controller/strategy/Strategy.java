@@ -4,7 +4,7 @@ import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Strategy {
@@ -15,6 +15,7 @@ public abstract class Strategy {
     Strategy(String name, int value) {
         this.name = name;
         this.value = value;
+        this.skills = new ArrayList<Skill>();
     }
 
     /**
