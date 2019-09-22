@@ -10,6 +10,7 @@ public class Request {
     protected String requestType;
     protected List<Skill> skills;
     protected List<Filter> filters;
+    protected List<String> parameter;
 
     /**
      * Create a request with a type.
@@ -19,6 +20,7 @@ public class Request {
         requestType = type;
         this.skills = new ArrayList<Skill>();
         this.filters = new ArrayList<Filter>();
+        this.parameter = new ArrayList<String>();
     }
 
     public String getRequestType() {
@@ -42,11 +44,23 @@ public class Request {
         filters.add(new Filter(name, value));
     }
 
+    /**
+     * Add a parameter.
+     * @param param value of the param
+     */
+    public void addParameter(String param) {
+        parameter.add(param);
+    }
+
     public List<Skill> getSkills() {
         return this.skills;
     }
 
     public List<Filter> getFilters() {
         return this.filters;
+    }
+
+    public List<String> getParameter() {
+        return this.parameter;
     }
 }
