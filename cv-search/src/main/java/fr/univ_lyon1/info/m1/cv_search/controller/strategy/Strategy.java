@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.cv_search.model.strategy;
+package fr.univ_lyon1.info.m1.cv_search.controller.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
@@ -11,7 +11,6 @@ public abstract class Strategy {
     protected List<Skill> skills;
     private String name;
     private int value;
-    HashMap<Applicant, Integer> result;
 
     Strategy(String name, int value) {
         this.name = name;
@@ -33,6 +32,11 @@ public abstract class Strategy {
         return result;
     }
 
+    /**
+     * Chech if the applicant meets the criteria of the strategy.
+     * @param a the applicant test
+     * @return true if applicant respect the criteria  and false esle
+     */
     protected abstract boolean respectCriterion(Applicant a);
 
     public String getName() {
@@ -41,10 +45,6 @@ public abstract class Strategy {
 
     public int getValue() {
         return value;
-    }
-
-    public HashMap<Applicant, Integer> getResult() {
-        return result;
     }
 
     public List<Skill> getSkills() {

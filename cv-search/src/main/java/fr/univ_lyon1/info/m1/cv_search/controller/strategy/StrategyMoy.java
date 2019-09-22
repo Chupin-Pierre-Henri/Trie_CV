@@ -1,18 +1,27 @@
-package fr.univ_lyon1.info.m1.cv_search.model.strategy;
+package fr.univ_lyon1.info.m1.cv_search.controller.strategy;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class StrategyMoy extends StrategyDecorator {
+    HashMap<Applicant, Integer> result;
 
     StrategyMoy(String name, int value, Strategy deco) {
         super(name, value, deco);
+        this.result = new HashMap<Applicant, Integer>();
+
     }
 
     StrategyMoy(String name, int value) {
         super(name, value, new StrategyComponent());
+        this.result = new HashMap<Applicant, Integer>();
+    }
+
+    public HashMap<Applicant, Integer> getResult() {
+        return result;
     }
 
     @Override
