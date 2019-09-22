@@ -147,10 +147,12 @@ public class SearchWidget {
                 Style.putStyle(keywordsBody);
                 experienceBox.getChildren().add(keywordsBody);
             }
+            Style.putStyle(experienceBox);
             experiencesBox.getChildren().add(experienceBox);
         }
 
         applicant.getChildren().add(experiencesBox);
+        Style.putStyle(applicant);
         resultBox.getChildren().add(applicant);
     }
 

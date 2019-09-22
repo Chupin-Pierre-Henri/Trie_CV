@@ -106,8 +106,11 @@ public class JfxView {
                             break;
                         case "value":
                             if (node instanceof InputArea) {
-                                //cast node in InputArea for getting his text
-                                value = Integer.parseInt(((InputArea) node).getText());
+                                String text = ((InputArea) node).getText();
+                                if ( text != null && !text.equals("")) {
+                                    //cast node in InputArea for getting his text
+                                    value = Integer.parseInt(text);
+                                }
                             }
                             break;
                         default:
@@ -115,7 +118,9 @@ public class JfxView {
                     }
                 }
             }
-            request.addFilter(type, value);
+            if( type != null && !type.equals("")){
+                request.addFilter(type, value);
+            }
         }
     }
 
