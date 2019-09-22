@@ -8,8 +8,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SearchWidget {
     private HBox searchBar;
@@ -81,6 +86,98 @@ public class SearchWidget {
         if (sortButton instanceof CheckBox) {
             ((CheckBox) sortButton).setSelected(selected);
         }
+    }
+
+    /**
+     * add the candidates who pass the filters.
+     *
+     * @param answer                      list of names that are to be added to the resultBox
+     * @param answerApplicantsExperiences map of applicant and his experiences
+     */
+    public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
+        for (String name : answer) {
+            addResult(answerApplicantsExperiences, name);
+        }
+    }
+
+    private void addResult(Map<String, List> answerApplicantsExperiences, String name) {
+        HBox applicant = new HBox();
+        applicant.getChildren().add(new Label(name));
+
+        //create the box of all experiences
+        VBox experiencesBox = new VBox();
+
+        List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
+        for (Map<String, Object> applicantExperience : applicantExperiences) {
+            //create the box of one experience
+
+            String company = "";
+            String start = "";
+            String end = "";
+            List<String> keywords = new ArrayList<String>();
+            //children of an experience box
+
+            for (String type : applicantExperience.keySet()) {
+                switch (type) {
+                    case "company":
+                        company = (String) applicantExperience.get(type);
+                        break;
+                    case "start":
+                        start = (String) applicantExperience.get(type);
+                        break;
+                    case "end":
+                        end = (String) applicantExperience.get(type);
+                        break;
+                    case "keywords":
+                        keywords = (List<String>) applicantExperience.get(type);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            VBox experienceBox = new VBox();
+
+            HBox header = constructHeaderBox(company, start, end);
+            Style.putStyle(header);
+            experienceBox.getChildren().add(header);
+
+            if (!keywords.isEmpty()) {
+                HBox keywordsBody = constructBodyBox(keywords);
+                Style.putStyle(keywordsBody);
+                experienceBox.getChildren().add(keywordsBody);
+            }
+            experiencesBox.getChildren().add(experienceBox);
+        }
+
+        applicant.getChildren().add(experiencesBox);
+        resultBox.getChildren().add(applicant);
+    }
+
+    private HBox constructBodyBox(List<String> keywords) {
+        HBox keywordsBody = new HBox();
+        keywordsBody.getChildren().add(new Label(" keywords : "));
+
+        VBox keywordBox = new VBox();
+        for (String keyword : keywords) {
+            keywordBox.getChildren().add(new Label("* " + keyword));
+        }
+        keywordsBody.getChildren().add(keywordBox);
+        return keywordsBody;
+    }
+
+    private HBox constructHeaderBox(String company, String start, String end) {
+        HBox header = new HBox();
+        //add header
+        header.getChildren().add(new Label(" company : "));
+        header.getChildren().add(new Label(company));
+        header.getChildren().add(new Label(" start : "));
+        header.getChildren().add(new Label(start));
+        if (!end.equals("")) {
+            header.getChildren().add(new Label(" end : "));
+            header.getChildren().add(new Label(end));
+        }
+        return header;
     }
 
     public HBox getSearchBar() {

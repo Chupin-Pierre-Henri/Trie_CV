@@ -119,84 +119,6 @@ public class JfxView {
         }
     }
 
-    /**
-     * add the candidates who pass the filters.
-     *
-     * @param answer                      list of names that are to be added to the resultBox
-     * @param answerApplicantsExperiences map of applicant and his experiences
-     */
-    public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
-        for (String name : answer) {
-
-            HBox applicant = new HBox();
-            applicant.getChildren().add(new Label(name));
-
-            //create the box of all experiences
-            VBox experiencesBox = new VBox();
-
-            List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
-            for (Map<String, Object> applicantExperience : applicantExperiences) {
-                //create the box of one experience
-
-                String company = "";
-                String start = "";
-                String end = "";
-                List<String> keywords = new ArrayList<String>();
-                //children of an experience box
-                HBox header = new HBox();
-                HBox keywordsBody = new HBox();
-
-                for (String type : applicantExperience.keySet()) {
-                    switch (type) {
-                        case "company":
-                            company = (String) applicantExperience.get(type);
-                            break;
-                        case "start":
-                            start = (String) applicantExperience.get(type);
-                            break;
-                        case "end":
-                            end = (String) applicantExperience.get(type);
-                            break;
-                        case "keywords":
-                            keywords = (List<String>) applicantExperience.get(type);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                //add header
-                header.getChildren().add(new Label(" company : "));
-                header.getChildren().add(new Label(company));
-                header.getChildren().add(new Label(" start : "));
-                header.getChildren().add(new Label(start));
-                if (!end.equals("")) {
-                    header.getChildren().add(new Label(" end : "));
-                    header.getChildren().add(new Label(end));
-                }
-                VBox experienceBox = new VBox();
-                experienceBox.getChildren().add(header);
-
-                //add keyword
-                if (!keywords.isEmpty()) {
-                    keywordsBody.getChildren().add(new Label(" keywords : "));
-
-                    VBox keywordBox = new VBox();
-                    for (String keyword : keywords) {
-                        keywordBox.getChildren().add(new Label("* " + keyword));
-                    }
-                    keywordsBody.getChildren().add(keywordBox);
-                }
-                experienceBox.getChildren().add(keywordsBody);
-                experiencesBox.getChildren().add(experienceBox);
-            }
-
-            applicant.getChildren().add(experiencesBox);
-            VBox resultBox = searchWidget.getResultBox();
-            resultBox.getChildren().add(applicant);
-        }
-    }
-
     public void sendSearchRequest(boolean selected) {
         Request request = new Request("search");
         addSkillToRequest(request);
@@ -234,5 +156,9 @@ public class JfxView {
 
     public void changeSortValue(int index, boolean selected) {
         searchWidget.changeSortValue(index,selected);
+    }
+
+    public void addResults(List<String> answer, Map<String, List> answerExperience) {
+        searchWidget.addResults(answer,answerExperience);
     }
 }
