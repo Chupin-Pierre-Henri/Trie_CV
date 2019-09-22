@@ -4,10 +4,11 @@ import fr.univ_lyon1.info.m1.cv_search.controller.component.Skill;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.Applicant;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
 
-import java.util.*;
+import java.util.List;
+import java.util.TreeMap;
 
 public class StrategyMoy extends StrategyDecorator {
-    private SortedMap<Integer,ApplicantList> sortedMap;
+    private TreeMap<Integer,ApplicantList> sortedMap;
 
     public StrategyMoy(String name, int value, Strategy deco) {
         super(name, value, deco);
@@ -19,7 +20,7 @@ public class StrategyMoy extends StrategyDecorator {
         this(name, value, new StrategyComponent());
     }
 
-    public SortedMap<Integer,ApplicantList> getSortedMap() {
+    public TreeMap<Integer,ApplicantList> getTreeMap() {
         return sortedMap;
     }
 
@@ -57,7 +58,7 @@ public class StrategyMoy extends StrategyDecorator {
 
     public ApplicantList sort(){
         ApplicantList result = new ApplicantList();
-        for (ApplicantList list : sortedMap.values()) {
+        for (ApplicantList list : sortedMap.descendingMap().values()) {
             for (Applicant a : list) {
                 result.add(a);
             }
