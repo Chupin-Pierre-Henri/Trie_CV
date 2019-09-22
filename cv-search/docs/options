@@ -1,0 +1,25 @@
+-classpath
+'/home/scheirlinck/.m2/repository/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2.jar:/home/scheirlinck/.m2/repository/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-linux.jar:/home/scheirlinck/.m2/repository/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar:/home/scheirlinck/.m2/repository/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar:/home/scheirlinck/.m2/repository/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar:/home/scheirlinck/.m2/repository/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar:/home/scheirlinck/.m2/repository/org/yaml/snakeyaml/1.24/snakeyaml-1.24.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/scheirlinck/Documents/Master/S1/GL/TP/m1if01-2019/cv-search/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2019. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/scheirlinck/Documents/Master/S1/GL/TP/m1if01-2019/cv-search/target/docs'
+-docencoding
+'UTF-8'
+-doctitle
+'cv_search 0.0.1-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/home/scheirlinck/Documents/Master/S1/GL/TP/m1if01-2019/cv-search/target/javadoc-bundle-options'
+-nohelp
+-use
+-version
+-windowtitle
+'cv_search 0.0.1-SNAPSHOT API'

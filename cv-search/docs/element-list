@@ -1,0 +1,8 @@
+fr.univ_lyon1.info.m1.cv_search
+fr.univ_lyon1.info.m1.cv_search.controller
+fr.univ_lyon1.info.m1.cv_search.controller.component
+fr.univ_lyon1.info.m1.cv_search.controller.strategy
+fr.univ_lyon1.info.m1.cv_search.model.applicant
+fr.univ_lyon1.info.m1.cv_search.model.applicant.experience
+fr.univ_lyon1.info.m1.cv_search.view
+fr.univ_lyon1.info.m1.cv_search.view.widget
