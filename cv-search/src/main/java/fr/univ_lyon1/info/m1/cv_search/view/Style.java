@@ -14,6 +14,7 @@ public class Style {
         box.setStyle(BASIC_STYLE);
         box.setAlignment(Pos.CENTER_LEFT);
     }
+
     public static void putStyle(VBox box) {
         box.setStyle(BASIC_STYLE);
         box.setAlignment(Pos.CENTER_LEFT);

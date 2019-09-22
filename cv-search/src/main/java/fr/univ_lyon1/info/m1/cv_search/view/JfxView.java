@@ -47,7 +47,7 @@ public class JfxView {
         Node filterBar = filterWidget.getFilterBar();
         root.getChildren().add(filterBar);
 
-        searchWidget = new SearchWidget(controller,this);
+        searchWidget = new SearchWidget(controller, this);
         Node searchBar = searchWidget.getSearchBar();
         root.getChildren().add(searchBar);
 
@@ -107,7 +107,7 @@ public class JfxView {
                         case "value":
                             if (node instanceof InputArea) {
                                 String text = ((InputArea) node).getText();
-                                if ( text != null && !text.equals("")) {
+                                if (text != null && !text.equals("")) {
                                     //cast node in InputArea for getting his text
                                     value = Integer.parseInt(text);
                                 }
@@ -118,17 +118,21 @@ public class JfxView {
                     }
                 }
             }
-            if( type != null && !type.equals("")){
+            if (type != null && !type.equals("")) {
                 request.addFilter(type, value);
             }
         }
     }
 
+    /**
+     * create the request and handle it by the controller.
+     * @param selected if need sort
+     */
     public void sendSearchRequest(boolean selected) {
         Request request = new Request("search");
         addSkillToRequest(request);
         addFilterToRequest(request);
-        if(selected) {
+        if (selected) {
             request.addParameter("sort");
         }
 
@@ -136,7 +140,7 @@ public class JfxView {
     }
 
     public void createNewSkill(String text) {
-        skillWidget.createNewSkill(text,controller);
+        skillWidget.createNewSkill(text, controller);
     }
 
     public void removeSkill(int index) {
@@ -152,18 +156,18 @@ public class JfxView {
     }
 
     public void changeTypeOnComboBox(int indexOfComboBox, int index, String type) {
-        filterWidget.changeTypeOnComboBox(indexOfComboBox,index,type);
+        filterWidget.changeTypeOnComboBox(indexOfComboBox, index, type);
     }
 
     public void changeValueOnComboBox(int indexOfComboBox, int index, String value) {
-        filterWidget.changeValueOnComboBox(indexOfComboBox,index,value);
+        filterWidget.changeValueOnComboBox(indexOfComboBox, index, value);
     }
 
     public void changeSortValue(int index, boolean selected) {
-        searchWidget.changeSortValue(index,selected);
+        searchWidget.changeSortValue(index, selected);
     }
 
     public void addResults(List<String> answer, Map<String, List> answerExperience) {
-        searchWidget.addResults(answer,answerExperience);
+        searchWidget.addResults(answer, answerExperience);
     }
 }

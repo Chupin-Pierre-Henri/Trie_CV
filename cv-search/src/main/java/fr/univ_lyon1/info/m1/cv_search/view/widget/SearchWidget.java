@@ -22,10 +22,16 @@ public class SearchWidget {
     private VBox resultBox;
     protected JfxView view;
 
-    protected SearchWidget(){
+    protected SearchWidget() {
     }
 
-    public SearchWidget(Controller controller, JfxView view){
+    /**
+     * construct the widget search for searching and sorting applicant,
+     * display in an resultBox.
+     * @param controller the controller to tell, in case of event
+     * @param view the view to send the request
+     */
+    public SearchWidget(Controller controller, JfxView view) {
         this.view = view;
         createSearchWidget(controller);
         createResultsWidget();

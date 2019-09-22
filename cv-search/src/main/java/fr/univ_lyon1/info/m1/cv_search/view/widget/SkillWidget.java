@@ -17,6 +17,10 @@ public class SkillWidget {
 
     private HBox searchSkillsBox;
 
+    /**
+     * construct the widget skill for adding and deleting skill/
+     * @param controller the controller to tell, in case of event
+     */
     public SkillWidget(Controller controller) {
         skillBar = new VBox();
 
@@ -25,7 +29,7 @@ public class SkillWidget {
         Node searchSkillsBox = createCurrentSearchSkillsWidget();
 
         //add children to skillbar
-        skillBar.getChildren().addAll(newSkillBox,searchSkillsBox);
+        skillBar.getChildren().addAll(newSkillBox, searchSkillsBox);
 
         //style part
         Style.putStyle(skillBar);
@@ -93,7 +97,7 @@ public class SkillWidget {
         box.setAccessibleText(text);
 
         //add children
-        box.getChildren().addAll(label,skillBtn);
+        box.getChildren().addAll(label, skillBtn);
 
         //add to searchSkillsBox node
         searchSkillsBox.getChildren().add(box);

@@ -29,6 +29,10 @@ public class FilterWidget {
         }
     };
 
+    /**
+     * construct the widget filter for adding and deleting filter.
+     * @param controller the controller to tell, in case of event
+     */
     public FilterWidget(Controller controller) {
         filterBar = new VBox();
 
@@ -37,7 +41,7 @@ public class FilterWidget {
         Node strategicOptionsBox = createCurrentFiltersWidget();
 
         //add children to filterBar
-        filterBar.getChildren().addAll(strategicNode,strategicOptionsBox);
+        filterBar.getChildren().addAll(strategicNode, strategicOptionsBox);
 
         //style part
         Style.putStyle(filterBar);
