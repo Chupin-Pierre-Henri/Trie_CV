@@ -8,10 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,6 +21,7 @@ public class JfxView {
     protected HBox searchSkillsBox;
     protected VBox strategicOptionsBox;
     protected VBox resultBox;
+    protected HBox searchBar;
 
     protected Controller controller;
 
@@ -100,7 +98,7 @@ public class JfxView {
     }
 
     /**
-     * create a new hbox in the view.
+     * create a new hbox in the view. Represent a filter.
      */
     public void createNewBox() {
         HBox newFilterBox = new HBox();
@@ -222,7 +220,11 @@ public class JfxView {
      * @return Node
      */
     protected Node createSearchWidget() {
+        searchBar = new HBox();
         Button search = new Button("Search");
+        CheckBox sort = new CheckBox("Sort");
+        searchBar.getChildren().addAll(search,sort);
+        int index = searchBar.getChildren().indexOf(sort);
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -231,11 +233,20 @@ public class JfxView {
                 Request request = new Request("search");
                 addSkillToRequest(request);
                 addFilterToRequest(request);
+                if (sort.isSelected()){
+                    request.addParameter("sort");
+                }
 
                 controller.handleRequest(request);
             }
         });
-        return search;
+        sort.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.checkSort(index,sort.isSelected());
+            }
+        });
+        return searchBar;
     }
 
     /**
@@ -431,6 +442,18 @@ public class JfxView {
             if (inputArea instanceof InputArea) {
                 ((InputArea) inputArea).setText(text);
             }
+        }
+    }
+    /**
+     * Change the value of the sort checkbox.
+     *
+     * @param index               the index in the searchBar
+     * @param selected            the filter name to change
+     */
+    public void changeSortValue(int index, boolean selected) {
+        Node sortButton = searchBar.getChildren().get(index);
+        if (sortButton instanceof CheckBox){
+            ((CheckBox)sortButton).setSelected(selected);
         }
     }
 }

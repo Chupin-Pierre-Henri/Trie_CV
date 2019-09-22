@@ -48,6 +48,7 @@ public class Controller {
         ApplicantList selectedApplicants;
         if(request.getParameter().contains("sort")){
             StrategyMoy strategyMoy = new StrategyMoy("sort",0,strategy);
+            strategyMoy.setSkills(request.getSkills());
             strategyMoy.filter(listApplicants);
             selectedApplicants = strategyMoy.sort();
         }else{
@@ -129,6 +130,12 @@ public class Controller {
     public void changeValue(int indexOfComboBox, int index, String value) {
         for (JfxView view : views) {
             view.changeValueOnComboBox(indexOfComboBox, index, value);
+        }
+    }
+
+    public void checkSort(int index, boolean selected) {
+        for (JfxView view : views) {
+            view.changeSortValue(index, selected);
         }
     }
 }
