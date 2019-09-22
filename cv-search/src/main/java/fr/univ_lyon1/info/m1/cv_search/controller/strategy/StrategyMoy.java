@@ -19,7 +19,7 @@ public class StrategyMoy extends StrategyDecorator {
         this(name, value, new StrategyComponent());
     }
 
-    public SortedMap<Integer,ApplicantList> getResult() {
+    public SortedMap<Integer,ApplicantList> getSortedMap() {
         return sortedMap;
     }
 
@@ -37,17 +37,17 @@ public class StrategyMoy extends StrategyDecorator {
         if (skills.size() != 0) {
             int moy = weight / skills.size();
             if (moy > this.getValue()) {
-                this.addResult(a, moy);
+                this.addApplicant(a, moy);
             } else {
                 return false;
             }
         } else {
-            this.addResult(a, 0);
+            this.addApplicant(a, 0);
         }
         return true;
     }
 
-    private void addResult(Applicant a, int i) {
+    private void addApplicant(Applicant a, int i) {
         if( ! sortedMap.containsKey(i)){
             ApplicantList list = new ApplicantList();
             sortedMap.put(i,list);
@@ -55,7 +55,7 @@ public class StrategyMoy extends StrategyDecorator {
         sortedMap.get(i).add(a);
     }
 
-    protected static ApplicantList sort(SortedMap<Integer,ApplicantList> sortedMap){
+    public ApplicantList sort(){
         ApplicantList result = new ApplicantList();
         for (ApplicantList list : sortedMap.values()) {
             for (Applicant a : list) {
