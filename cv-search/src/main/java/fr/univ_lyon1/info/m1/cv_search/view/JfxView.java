@@ -48,20 +48,14 @@ public class JfxView {
 
         VBox root = new VBox();
 
-        Node newSkillBox = createNewSkillWidget();
-        root.getChildren().add(newSkillBox);
+        Node skillBar = constructSkillBar();
+        root.getChildren().add(skillBar);
 
-        Node searchSkillsBox = createCurrentSearchSkillsWidget();
-        root.getChildren().add(searchSkillsBox);
+        Node filterBar = constructFilterBar();
+        root.getChildren().add(filterBar);
 
-        Node strategicNode = createStrategicOptions();
-        root.getChildren().add(strategicNode);
-
-        Node strategicOptionsBox = createCurrentFiltersWidget();
-        root.getChildren().add(strategicOptionsBox);
-
-        Node search = createSearchWidget();
-        root.getChildren().add(search);
+        Node searchBar = createSearchWidget();
+        root.getChildren().add(searchBar);
 
         Node resultBox = createResultsWidget();
         root.getChildren().add(resultBox);
@@ -70,6 +64,38 @@ public class JfxView {
         Scene scene = new Scene(root, width, height);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private VBox constructFilterBar() {
+        VBox filterBar = new VBox();
+
+        //create children
+        Node strategicNode = createStrategicOptions();
+        Node strategicOptionsBox = createCurrentFiltersWidget();
+
+        //add children to filterBar
+        filterBar.getChildren().addAll(strategicNode,strategicOptionsBox);
+
+        //style part
+        Style.putStyle(filterBar);
+
+        return filterBar;
+    }
+
+    private VBox constructSkillBar() {
+        VBox skillBar = new VBox();
+
+        //create children
+        Node newSkillBox = createNewSkillWidget();
+        Node searchSkillsBox = createCurrentSearchSkillsWidget();
+
+        //add children to skillbar
+        skillBar.getChildren().addAll(newSkillBox,searchSkillsBox);
+
+        //style part
+        Style.putStyle(skillBar);
+
+        return skillBar;
     }
 
     protected JfxView() {
@@ -127,11 +153,14 @@ public class JfxView {
 
         //add filter to the bigger node
         strategicOptionsBox.getChildren().add(newFilterBox);
+
+        //style part
+        Style.putStyle(newFilterBox);
+
+        //event part
         int indexOfComboBox = newFilterBox.getChildren().indexOf(dropdownMenu);
         int indexOfInputArea = newFilterBox.getChildren().indexOf(valueField);
         int index = strategicOptionsBox.getChildren().indexOf(newFilterBox);
-
-        //event part
         dropdownMenu.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -196,10 +225,24 @@ public class JfxView {
      * @param text the name of the skill to add
      */
     public void createNewSkill(String text) {
-        Button skillBtn = new Button(text);
+        HBox box = new HBox();
+
+        //create children
+        Label label = new Label(text + " ");
+        Button skillBtn = new Button("x");
         skillBtn.setId("skill");
-        searchSkillsBox.getChildren().add(skillBtn);
-        int index = searchSkillsBox.getChildren().indexOf(skillBtn);
+
+        //add children
+        box.getChildren().addAll(label,skillBtn);
+
+        //add to searchSkillsBox node
+        searchSkillsBox.getChildren().add(box);
+
+        //style part
+        Style.putStyle(box);
+
+        // event part
+        int index = searchSkillsBox.getChildren().indexOf(box);
         skillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -207,7 +250,6 @@ public class JfxView {
             }
         });
     }
-
     /**
      * Create the widget showing the list of applicants.
      *
@@ -225,9 +267,19 @@ public class JfxView {
      */
     protected Node createSearchWidget() {
         searchBar = new HBox();
+
+        //create children
         Button search = new Button("Search");
         CheckBox sort = new CheckBox("Sort");
+
+        //add children
         searchBar.getChildren().addAll(search, sort);
+
+        //style part
+        Style.putStyle(searchBar);
+        sort.setStyle("-fx-padding: 2;");
+
+        //event part
         int index = searchBar.getChildren().indexOf(sort);
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -250,6 +302,7 @@ public class JfxView {
                 controller.checkSort(index, sort.isSelected());
             }
         });
+
         return searchBar;
     }
 
