@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class StrategyMoy extends StrategyDecorator {
-    private TreeMap<Integer,ApplicantList> sortedMap;
+    private TreeMap<Integer, ApplicantList> sortedMap;
 
+    /**
+     * create a new Strategy Moy.
+     * @param name name of strategy
+     * @param value value for criterion
+     * @param deco the strategy to decorate
+     */
     public StrategyMoy(String name, int value, Strategy deco) {
         super(name, value, deco);
-        this.sortedMap = new TreeMap<Integer,ApplicantList>();
+        this.sortedMap = new TreeMap<Integer, ApplicantList>();
 
     }
 
@@ -20,7 +26,7 @@ public class StrategyMoy extends StrategyDecorator {
         this(name, value, new StrategyComponent());
     }
 
-    public TreeMap<Integer,ApplicantList> getTreeMap() {
+    public TreeMap<Integer, ApplicantList> getTreeMap() {
         return sortedMap;
     }
 
@@ -48,15 +54,24 @@ public class StrategyMoy extends StrategyDecorator {
         return true;
     }
 
+    /**
+     * add a Applicant to the sortedMap.
+     * @param a applicant to add
+     * @param i the weight
+     */
     private void addApplicant(Applicant a, int i) {
-        if( ! sortedMap.containsKey(i)){
+        if (!sortedMap.containsKey(i)) {
             ApplicantList list = new ApplicantList();
-            sortedMap.put(i,list);
+            sortedMap.put(i, list);
         }
         sortedMap.get(i).add(a);
     }
 
-    public ApplicantList sort(){
+    /**
+     * translate the sortedMap.
+     * @return the list of Applicant, better to lower
+     */
+    public ApplicantList sort() {
         ApplicantList result = new ApplicantList();
         for (ApplicantList list : sortedMap.descendingMap().values()) {
             for (Applicant a : list) {

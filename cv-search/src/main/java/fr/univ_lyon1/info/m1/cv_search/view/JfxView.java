@@ -8,7 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -223,7 +227,7 @@ public class JfxView {
         searchBar = new HBox();
         Button search = new Button("Search");
         CheckBox sort = new CheckBox("Sort");
-        searchBar.getChildren().addAll(search,sort);
+        searchBar.getChildren().addAll(search, sort);
         int index = searchBar.getChildren().indexOf(sort);
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -233,7 +237,7 @@ public class JfxView {
                 Request request = new Request("search");
                 addSkillToRequest(request);
                 addFilterToRequest(request);
-                if (sort.isSelected()){
+                if (sort.isSelected()) {
                     request.addParameter("sort");
                 }
 
@@ -243,7 +247,7 @@ public class JfxView {
         sort.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.checkSort(index,sort.isSelected());
+                controller.checkSort(index, sort.isSelected());
             }
         });
         return searchBar;
@@ -337,7 +341,7 @@ public class JfxView {
     /**
      * add the candidates who pass the filters.
      *
-     * @param answer list of names that are to be added to the resultBox
+     * @param answer                      list of names that are to be added to the resultBox
      * @param answerApplicantsExperiences map of applicant and his experiences
      */
     public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
@@ -444,16 +448,17 @@ public class JfxView {
             }
         }
     }
+
     /**
      * Change the value of the sort checkbox.
      *
-     * @param index               the index in the searchBar
-     * @param selected            the filter name to change
+     * @param index    the index in the searchBar
+     * @param selected the filter name to change
      */
     public void changeSortValue(int index, boolean selected) {
         Node sortButton = searchBar.getChildren().get(index);
-        if (sortButton instanceof CheckBox){
-            ((CheckBox)sortButton).setSelected(selected);
+        if (sortButton instanceof CheckBox) {
+            ((CheckBox) sortButton).setSelected(selected);
         }
     }
 }

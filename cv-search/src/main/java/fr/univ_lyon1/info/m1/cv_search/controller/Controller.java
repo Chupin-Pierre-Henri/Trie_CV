@@ -46,12 +46,12 @@ public class Controller {
                 = new ApplicantListBuilder(new File(".")).build();
 
         ApplicantList selectedApplicants;
-        if(request.getParameter().contains("sort")){
-            StrategyMoy strategyMoy = new StrategyMoy("sort",0,strategy);
+        if (request.getParameter().contains("sort")) {
+            StrategyMoy strategyMoy = new StrategyMoy("sort", 0, strategy);
             strategyMoy.setSkills(request.getSkills());
             strategyMoy.filter(listApplicants);
             selectedApplicants = strategyMoy.sort();
-        }else{
+        } else {
             selectedApplicants = strategy.filter(listApplicants);
         }
 
@@ -108,22 +108,22 @@ public class Controller {
     }
 
     /**
-     * the controller change for all the view the type.
+     * the controller change for all view, type of one combobox.
      *
      * @param indexOfComboBox the index in the ComboBox
      * @param index           the index in the strategicOptionsBox
-     * @param value           the filter name to change
+     * @param type            the filter name to change
      */
-    public void changeType(int indexOfComboBox, int index, String value) {
+    public void changeType(int indexOfComboBox, int index, String type) {
         for (JfxView view : views) {
-            view.changeTypeOnComboBox(indexOfComboBox, index, value);
+            view.changeTypeOnComboBox(indexOfComboBox, index, type);
         }
     }
 
     /**
-     * the controller change for all the view the type.
+     * the controller change for all view, value of one combobox.
      *
-     * @param indexOfComboBox the index in the ComboBox
+     * @param indexOfComboBox the index for the ComboBox
      * @param index           the index in the strategicOptionsBox
      * @param value           the Value name to change
      */
@@ -133,6 +133,12 @@ public class Controller {
         }
     }
 
+    /**
+     * the controller change for all view: selected of sort checkbox.
+     *
+     * @param index           the index in the seachbar
+     * @param selected        the value of checkbox
+     */
     public void checkSort(int index, boolean selected) {
         for (JfxView view : views) {
             view.changeSortValue(index, selected);
