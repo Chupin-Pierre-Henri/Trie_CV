@@ -1,8 +1,12 @@
 package fr.univ_lyon1.info.m1.cv_search.controller;
 
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.FilterWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SearchWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SkillWidget;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,22 +61,24 @@ public class ControllerTest {
             // Name of window
 
             VBox root = new VBox();
+            skillWidget = new SkillWidget(controller);
+            filterWidget = new FilterWidget(controller);
+            searchWidget = new SearchWidget(controller,this);
 
-
-            Node searchSkillsBox = createCurrentSearchSkillsWidget();
+            HBox searchSkillsBox = skillWidget.getSearchSkillsBox();
             root.getChildren().add(searchSkillsBox);
 
-            Node strategicOptionsBox = createCurrentFiltersWidget();
+            Node strategicOptionsBox = filterWidget.getStrategicOptionsBox();
             root.getChildren().add(strategicOptionsBox);
 
-            Node resultBox = createResultsWidget();
+            Node resultBox = searchWidget.getResultBox();
             root.getChildren().add(resultBox);
 
             // Everything's ready: add it to the scene and display it
             Scene scene = new Scene(root, 0, 0);
         }
 
-        public String  getResult(int i){
+        public String getResult(int i){
             return resultat.get(i);
         }
 

@@ -2,17 +2,14 @@ package fr.univ_lyon1.info.m1.cv_search.view;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.Controller;
 import fr.univ_lyon1.info.m1.cv_search.controller.Request;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.FilterWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SearchWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SkillWidget;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,20 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 public class JfxView {
-    protected HBox searchSkillsBox;
-    protected VBox strategicOptionsBox;
-    protected VBox resultBox;
-    protected HBox searchBar;
 
+    protected SearchWidget searchWidget;
+    protected SkillWidget skillWidget;
+    protected FilterWidget filterWidget;
     protected Controller controller;
 
-    private final List<String> listStrategy = new ArrayList<String>() {
-        {
-            add("average");
-            add("superior");
-            add("lower");
-        }
-    };
+    protected JfxView() {
+    }
 
     /**
      * Create the main view of the application.
@@ -48,16 +39,19 @@ public class JfxView {
 
         VBox root = new VBox();
 
-        Node skillBar = constructSkillBar();
+        skillWidget = new SkillWidget(controller);
+        Node skillBar = skillWidget.getSkillBar();
         root.getChildren().add(skillBar);
 
-        Node filterBar = constructFilterBar();
+        filterWidget = new FilterWidget(controller);
+        Node filterBar = filterWidget.getFilterBar();
         root.getChildren().add(filterBar);
 
-        Node searchBar = createSearchWidget();
+        searchWidget = new SearchWidget(controller,this);
+        Node searchBar = searchWidget.getSearchBar();
         root.getChildren().add(searchBar);
 
-        Node resultBox = createResultsWidget();
+        Node resultBox = searchWidget.getResultBox();
         root.getChildren().add(resultBox);
 
         // Everything's ready: add it to the scene and display it
@@ -66,256 +60,17 @@ public class JfxView {
         stage.show();
     }
 
-    private VBox constructFilterBar() {
-        VBox filterBar = new VBox();
-
-        //create children
-        Node strategicNode = createStrategicOptions();
-        Node strategicOptionsBox = createCurrentFiltersWidget();
-
-        //add children to filterBar
-        filterBar.getChildren().addAll(strategicNode,strategicOptionsBox);
-
-        //style part
-        Style.putStyle(filterBar);
-
-        return filterBar;
-    }
-
-    private VBox constructSkillBar() {
-        VBox skillBar = new VBox();
-
-        //create children
-        Node newSkillBox = createNewSkillWidget();
-        Node searchSkillsBox = createCurrentSearchSkillsWidget();
-
-        //add children to skillbar
-        skillBar.getChildren().addAll(newSkillBox,searchSkillsBox);
-
-        //style part
-        Style.putStyle(skillBar);
-
-        return skillBar;
-    }
-
-    protected JfxView() {
-    }
-
-    /**
-     * Create the Node for adding/deleting a Filter.
-     *
-     * @return Node for adding/deleting a Filter
-     */
-    protected Node createStrategicOptions() {
-        HBox newFilterHeadBox = new HBox();
-
-        //preparing child and add it
-        Button addButton = new Button("Add Filter");
-        Label labelFilter = new Label("Filters:");
-
-        newFilterHeadBox.getChildren().addAll(labelFilter, addButton);
-        newFilterHeadBox.setSpacing(10);
-
-        //event part
-        EventHandler<ActionEvent> filterHandlerAdd = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.addNewFilter();
-            }
-        };
-        addButton.setOnAction(filterHandlerAdd);
-        return newFilterHeadBox;
-    }
-
-    /**
-     * create a new hbox in the view. Represent a filter.
-     */
-    public void createNewBox() {
-        HBox newFilterBox = new HBox();
-        newFilterBox.setId("filter");
-
-        //create the children and add it
-        ObservableList<String> opts = FXCollections.observableList(listStrategy);
-        ComboBox<String> dropdownMenu = new ComboBox<String>(opts);
-        Label labelValue = new Label("to value:");
-        InputArea valueField = new InputArea();
-        Button removeButton = new Button("X");
-
-        dropdownMenu.setId("type");
-        valueField.setId("value");
-
-        newFilterBox.getChildren().addAll(dropdownMenu,
-                labelValue,
-                valueField,
-                removeButton
-        );
-        newFilterBox.setSpacing(10);
-
-        //add filter to the bigger node
-        strategicOptionsBox.getChildren().add(newFilterBox);
-
-        //style part
-        Style.putStyle(newFilterBox);
-
-        //event part
-        int indexOfComboBox = newFilterBox.getChildren().indexOf(dropdownMenu);
-        int indexOfInputArea = newFilterBox.getChildren().indexOf(valueField);
-        int index = strategicOptionsBox.getChildren().indexOf(newFilterBox);
-        dropdownMenu.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String value = dropdownMenu.getValue();
-                controller.changeType(indexOfComboBox, index, value);
-            }
-        });
-        valueField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String value = valueField.getText();
-                controller.changeValue(indexOfInputArea, index, value);
-            }
-        });
-        removeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.removeFilter(index);
-            }
-        });
-    }
-
-    /**
-     * Create the text field to enter a new skill.
-     *
-     * @return Node with the text field to enter a new skill
-     */
-    protected Node createNewSkillWidget() {
-        HBox newSkillBox = new HBox();
-
-        //preparing children node and add it
-        Label labelSkill = new Label("Skill:");
-        TextField textField = new TextField();
-        Button submitButton = new Button("Add skill");
-
-        newSkillBox.getChildren().addAll(labelSkill, textField, submitButton);
-        newSkillBox.setSpacing(10);
-
-        // event part
-        EventHandler<ActionEvent> skillHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String text = textField.getText().trim();
-                if (text.equals("")) {
-                    return; // Do nothing
-                }
-
-                controller.addNewSkill(text);
-
-                textField.setText("");
-                textField.requestFocus();
-            }
-        };
-        submitButton.setOnAction(skillHandler);
-        textField.setOnAction(skillHandler);
-        return newSkillBox;
-    }
-
-    /**
-     * create a new skill with name.
-     *
-     * @param text the name of the skill to add
-     */
-    public void createNewSkill(String text) {
-        HBox box = new HBox();
-
-        //create children
-        Label label = new Label(text + " ");
-        Button skillBtn = new Button("x");
-        skillBtn.setId("skill");
-
-        //add children
-        box.getChildren().addAll(label,skillBtn);
-
-        //add to searchSkillsBox node
-        searchSkillsBox.getChildren().add(box);
-
-        //style part
-        Style.putStyle(box);
-
-        // event part
-        int index = searchSkillsBox.getChildren().indexOf(box);
-        skillBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.removeSkill(index);
-            }
-        });
-    }
-    /**
-     * Create the widget showing the list of applicants.
-     *
-     * @return Node
-     */
-    protected Node createResultsWidget() {
-        resultBox = new VBox();
-        return resultBox;
-    }
-
-    /**
-     * Create the widget used to trigger the search.
-     *
-     * @return Node
-     */
-    protected Node createSearchWidget() {
-        searchBar = new HBox();
-
-        //create children
-        Button search = new Button("Search");
-        CheckBox sort = new CheckBox("Sort");
-
-        //add children
-        searchBar.getChildren().addAll(search, sort);
-
-        //style part
-        Style.putStyle(searchBar);
-        sort.setStyle("-fx-padding: 2;");
-
-        //event part
-        int index = searchBar.getChildren().indexOf(sort);
-        search.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                resultBox.getChildren().clear();
-
-                Request request = new Request("search");
-                addSkillToRequest(request);
-                addFilterToRequest(request);
-                if (sort.isSelected()) {
-                    request.addParameter("sort");
-                }
-
-                controller.handleRequest(request);
-            }
-        });
-        sort.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.checkSort(index, sort.isSelected());
-            }
-        });
-
-        return searchBar;
-    }
-
     /**
      * add all skill in searchSkillBox to the request.
      *
      * @param request the target
      */
     protected void addSkillToRequest(Request request) {
+        HBox searchSkillsBox = skillWidget.getSearchSkillsBox();
         for (Node skill : searchSkillsBox.getChildren()) {
             // casting Node into Button for getting his value
-            if (skill.getId().equals("skill") && skill instanceof Button) {
-                String text = ((Button) skill).getText();
+            if (skill.getId().equals("skill")) {
+                String text = skill.getAccessibleText();
                 request.addSkill(text);
             }
         }
@@ -327,6 +82,7 @@ public class JfxView {
      * @param request the target
      */
     protected void addFilterToRequest(Request request) {
+        VBox strategicOptionsBox = filterWidget.getStrategicOptionsBox();
         for (Node strategy : strategicOptionsBox.getChildren()) {
             //get Node of Strategy HBox
             List<Node> listNode;
@@ -361,34 +117,6 @@ public class JfxView {
             }
             request.addFilter(type, value);
         }
-    }
-
-    /**
-     * Create the widget showing the list of skills currently searched.
-     *
-     * @return Node
-     */
-    protected Node createCurrentSearchSkillsWidget() {
-        searchSkillsBox = new HBox();
-        return searchSkillsBox;
-    }
-
-    /**
-     * Create the widget containing the different filter for search.
-     *
-     * @return Node
-     */
-    protected Node createCurrentFiltersWidget() {
-        strategicOptionsBox = new VBox();
-        return strategicOptionsBox;
-    }
-
-    public void removeFilter(int index) {
-        strategicOptionsBox.getChildren().remove(index);
-    }
-
-    public void removeSkill(int index) {
-        searchSkillsBox.getChildren().remove(index);
     }
 
     /**
@@ -464,54 +192,47 @@ public class JfxView {
             }
 
             applicant.getChildren().add(experiencesBox);
+            VBox resultBox = searchWidget.getResultBox();
             resultBox.getChildren().add(applicant);
         }
     }
 
-    /**
-     * Change the type of the comboBox.
-     *
-     * @param indexOfComboBox the index in the ComboBox
-     * @param index           the index in the strategicOptionsBox
-     * @param type            the filter name to change
-     */
+    public void sendSearchRequest(boolean selected) {
+        Request request = new Request("search");
+        addSkillToRequest(request);
+        addFilterToRequest(request);
+        if(selected) {
+            request.addParameter("sort");
+        }
+
+        controller.handleRequest(request);
+    }
+
+    public void createNewSkill(String text) {
+        skillWidget.createNewSkill(text,controller);
+    }
+
+    public void removeSkill(int index) {
+        skillWidget.removeSkill(index);
+    }
+
+    public void createNewBox() {
+        filterWidget.createNewBox(controller);
+    }
+
+    public void removeFilter(int index) {
+        filterWidget.removeFilter(index);
+    }
+
     public void changeTypeOnComboBox(int indexOfComboBox, int index, String type) {
-        Node filterBox = strategicOptionsBox.getChildren().get(index);
-        if (filterBox instanceof HBox) {
-            Node comboBox = ((HBox) filterBox).getChildren().get(indexOfComboBox);
-            if (comboBox instanceof ComboBox) {
-                ((ComboBox<String>) comboBox).setValue(type);
-            }
-        }
+        filterWidget.changeTypeOnComboBox(indexOfComboBox,index,type);
     }
 
-    /**
-     * Change the type of the comboBox.
-     *
-     * @param indexOfComboBox the index in the ComboBox
-     * @param index           the index in the strategicOptionsBox
-     * @param text            the filter name to change
-     */
-    public void changeValueOnComboBox(int indexOfComboBox, int index, String text) {
-        Node filterBox = strategicOptionsBox.getChildren().get(index);
-        if (filterBox instanceof HBox) {
-            Node inputArea = ((HBox) filterBox).getChildren().get(indexOfComboBox);
-            if (inputArea instanceof InputArea) {
-                ((InputArea) inputArea).setText(text);
-            }
-        }
+    public void changeValueOnComboBox(int indexOfComboBox, int index, String value) {
+        filterWidget.changeValueOnComboBox(indexOfComboBox,index,value);
     }
 
-    /**
-     * Change the value of the sort checkbox.
-     *
-     * @param index    the index in the searchBar
-     * @param selected the filter name to change
-     */
     public void changeSortValue(int index, boolean selected) {
-        Node sortButton = searchBar.getChildren().get(index);
-        if (sortButton instanceof CheckBox) {
-            ((CheckBox) sortButton).setSelected(selected);
-        }
+        searchWidget.changeSortValue(index,selected);
     }
 }
