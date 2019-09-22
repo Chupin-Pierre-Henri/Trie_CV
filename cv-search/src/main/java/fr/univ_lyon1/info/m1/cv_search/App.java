@@ -20,8 +20,10 @@ public class App extends Application {
         // First view, provided in skeleton
         new JfxView(controller,stage, 600, 600);
 
-        // Second view
-        new JfxView(controller, new Stage(), 400, 400);
+        /*
+         Second view
+         new JfxView(controller, new Stage(), 400, 400);
+         */
     }
 
 
