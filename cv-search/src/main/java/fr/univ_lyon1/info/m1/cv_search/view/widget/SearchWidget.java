@@ -171,7 +171,7 @@ public class SearchWidget {
 
         VBox keywordBox = new VBox();
         for (String keyword : keywords) {
-            keywordBox.getChildren().add(new Label("* " + keyword));
+            keywordBox.getChildren().add(new Label(" * " + keyword));
         }
         keywordsBody.getChildren().add(keywordBox);
         return keywordsBody;
@@ -180,12 +180,12 @@ public class SearchWidget {
     private HBox constructHeaderBox(String company, String start, String end) {
         HBox header = new HBox();
         //add header
-        header.getChildren().add(new Label(" company : "));
+        header.getChildren().add(new Label(" Company : "));
         header.getChildren().add(new Label(company));
-        header.getChildren().add(new Label(" start : "));
+        header.getChildren().add(new Label("    Start : "));
         header.getChildren().add(new Label(start));
         if (!end.equals("")) {
-            header.getChildren().add(new Label(" end : "));
+            header.getChildren().add(new Label("    End : "));
             header.getChildren().add(new Label(end));
         }
         return header;
