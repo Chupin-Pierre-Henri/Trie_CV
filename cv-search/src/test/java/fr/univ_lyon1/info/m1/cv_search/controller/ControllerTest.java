@@ -1,8 +1,12 @@
 package fr.univ_lyon1.info.m1.cv_search.controller;
 
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.FilterWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SearchWidget;
+import fr.univ_lyon1.info.m1.cv_search.view.widget.SkillWidget;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +28,6 @@ public class ControllerTest {
     public void setUp() {
         c = new Controller();
         MjfxView = new MockJfxView(c);
-        c.addView(MjfxView);
         r = new Request("search");
         r.addSkill("c");
         r.addFilter("superior",60);
@@ -53,26 +56,21 @@ public class ControllerTest {
          */
         public MockJfxView(Controller controller) {
             this.controller = controller;
+            this.controller.addView(this);
             this.resultat = new ArrayList<String>();
             // Name of window
 
             VBox root = new VBox();
+            searchWidget = new MockSearchWidget(controller, this);
 
-
-            Node searchSkillsBox = createCurrentSearchSkillsWidget();
-            root.getChildren().add(searchSkillsBox);
-
-            Node strategicOptionsBox = createCurrentFiltersWidget();
-            root.getChildren().add(strategicOptionsBox);
-
-            Node resultBox = createResultsWidget();
+            Node resultBox = searchWidget.getResultBox();
             root.getChildren().add(resultBox);
 
             // Everything's ready: add it to the scene and display it
             Scene scene = new Scene(root, 0, 0);
         }
 
-        public String  getResult(int i){
+        public String getResult(int i) {
             return resultat.get(i);
         }
 
@@ -113,8 +111,14 @@ public class ControllerTest {
             }
 
         }
+    }
 
-
+    private class MockSearchWidget extends SearchWidget {
+        public MockSearchWidget(Controller controller, MockJfxView mockJfxView) {
+            super();
+            this.view = mockJfxView;
+            createResultsWidget();
+        }
     }
 }
 
