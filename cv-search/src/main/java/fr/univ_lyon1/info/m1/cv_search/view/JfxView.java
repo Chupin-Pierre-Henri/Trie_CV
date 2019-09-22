@@ -337,7 +337,7 @@ public class JfxView {
     /**
      * add the candidates who pass the filters.
      *
-     * @param answer                      list of names that are to be added to the resultBox
+     * @param answer list of names that are to be added to the resultBox
      * @param answerApplicantsExperiences map of applicant and his experiences
      */
     public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
@@ -352,7 +352,6 @@ public class JfxView {
             List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
             for (Map<String, Object> applicantExperience : applicantExperiences) {
                 //create the box of one experience
-                VBox experienceBox = new VBox();
 
                 String company = "";
                 String start = "";
@@ -390,6 +389,7 @@ public class JfxView {
                     header.getChildren().add(new Label(" end : "));
                     header.getChildren().add(new Label(end));
                 }
+                VBox experienceBox = new VBox();
                 experienceBox.getChildren().add(header);
 
                 //add keyword

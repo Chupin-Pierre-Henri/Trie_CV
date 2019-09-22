@@ -24,7 +24,8 @@ public class ApplicantBuilder {
     }
 
     /**
-     * Build the applicant from the Yaml file provided to the constructor.
+     * Build the applicant from the Yaml file provided to the constructor
+     * and takes into account experience and these skills.
      */
     public Applicant build() {
         Applicant a = new Applicant();
