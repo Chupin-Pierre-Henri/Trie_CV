@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +34,11 @@ public class ControllerTest {
     public void handleSearchRequest() {
         List<String> ret = new ArrayList<String>();
         c.handleRequest(r);
-        String res = MjfxView.getResult(0);
-        assertEquals(res, "John Smith");
+        assertEquals(MjfxView.getResult(0), "John Smith");
+        assertEquals(MjfxView.getResult(1), "Google");
+        assertEquals(MjfxView.getResult(2), "2005");
+        assertEquals(MjfxView.getResult(3), "2010");
+        assertEquals(MjfxView.getResult(4), "c");
     }
 
 
@@ -72,10 +76,49 @@ public class ControllerTest {
             return resultat.get(i);
         }
 
-        public void addResults(List<String> answer, List<List> answerExperience) {
+        public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
+            /**
             for (String name : answer) {
                 resultat.add(name);
             }
+             */
+            for (String name : answer) {
+                List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
+                for (Map<String, Object> applicantExperience : applicantExperiences) {
+                    //create the box of one experience
+
+                    String company = "";
+                    String start = "";
+                    String end = "";
+                    List<String> keywords = new ArrayList<String>();
+
+                    for (String type : applicantExperience.keySet()) {
+                        switch (type) {
+                            case "company":
+                                company = (String) applicantExperience.get(type);
+                                break;
+                            case "start":
+                                start = (String) applicantExperience.get(type);
+                                break;
+                            case "end":
+                                end = (String) applicantExperience.get(type);
+                                break;
+                            case "keywords":
+                                keywords = (List<String>) applicantExperience.get(type);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    resultat.add(name);
+                    resultat.add(company);
+                    resultat.add(start);
+                    resultat.add(end);
+                    resultat.add(keywords.get(0));
+                    int i = 0;
+                }
+            }
+
         }
 
 
