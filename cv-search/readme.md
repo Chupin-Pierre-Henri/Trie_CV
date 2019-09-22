@@ -27,4 +27,13 @@ Nous pensons que un humain pourrait faire un meilleur travail car nous ne prenno
 
 Les Tests
 -
-nous avons tester l'interface graphique de façon manuels afin de vérifier si la view s'affiche correctement et que les boutons et les noms des candidats sont bien affiché au bonne endroit.
+nous avons tester l'interface graphique de façon manuels afin de vérifier si la view s'affiche correctement et que les boutons et les noms et l'expériences des candidats sont bien affiché au bonne endroit.&nbsp;
+
+
+Design patterns
+-
+Nous avons appliqué différent design patterns pendant le projet et nous allons vous les présenters et expliquer ces choix.&nbsp;
+
+Pour les strategies nous avons appliqué le design patterns décorateur qui permet de décorer les différentes strategie et donc de ne pas avoir la multiplication (voire l’explosion) des sous-classes à créer. c'est grâce à que nous avons pu mettre en place une sélection libre dans les strategies, on peut associer les différentes strategie que nous avons créer en leur m'étant à chacune des valeurs différentes ce qui offre une indépendence à l'utilisateur.&nbsp;
+
+Pour 
