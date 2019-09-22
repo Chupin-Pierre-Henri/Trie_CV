@@ -18,7 +18,7 @@ public class SkillWidget {
     private HBox searchSkillsBox;
 
     /**
-     * construct the widget skill for adding and deleting skill/
+     * construct the widget skill for adding and deleting skill.
      * @param controller the controller to tell, in case of event
      */
     public SkillWidget(Controller controller) {
