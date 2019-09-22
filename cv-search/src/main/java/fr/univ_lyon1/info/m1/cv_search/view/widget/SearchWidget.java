@@ -20,7 +20,10 @@ public class SearchWidget {
     private HBox searchBar;
 
     private VBox resultBox;
-    private JfxView view;
+    protected JfxView view;
+
+    protected SearchWidget(){
+    }
 
     public SearchWidget(Controller controller, JfxView view){
         this.view = view;
