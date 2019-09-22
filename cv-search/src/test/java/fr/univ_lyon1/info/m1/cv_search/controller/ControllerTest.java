@@ -77,16 +77,9 @@ public class ControllerTest {
         }
 
         public void addResults(List<String> answer, Map<String, List> answerApplicantsExperiences) {
-            /**
-            for (String name : answer) {
-                resultat.add(name);
-            }
-             */
             for (String name : answer) {
                 List<Map> applicantExperiences = answerApplicantsExperiences.get(name);
                 for (Map<String, Object> applicantExperience : applicantExperiences) {
-                    //create the box of one experience
-
                     String company = "";
                     String start = "";
                     String end = "";
