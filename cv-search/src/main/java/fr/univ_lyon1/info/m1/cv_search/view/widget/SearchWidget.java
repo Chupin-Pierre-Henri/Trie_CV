@@ -167,7 +167,7 @@ public class SearchWidget {
 
     private HBox constructBodyBox(List<String> keywords) {
         HBox keywordsBody = new HBox();
-        keywordsBody.getChildren().add(new Label(" keywords : "));
+        keywordsBody.getChildren().add(new Label(" Keywords : "));
 
         VBox keywordBox = new VBox();
         for (String keyword : keywords) {
