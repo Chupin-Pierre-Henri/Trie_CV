@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.cv_search.controller;
 
 import fr.univ_lyon1.info.m1.cv_search.controller.strategy.Strategy;
 import fr.univ_lyon1.info.m1.cv_search.controller.strategy.StrategyBuilder;
+import fr.univ_lyon1.info.m1.cv_search.controller.strategy.StrategyMoy;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantList;
 import fr.univ_lyon1.info.m1.cv_search.model.applicant.ApplicantListBuilder;
 import fr.univ_lyon1.info.m1.cv_search.view.JfxView;
@@ -44,8 +45,15 @@ public class Controller {
         ApplicantList listApplicants
                 = new ApplicantListBuilder(new File(".")).build();
 
+        ApplicantList selectedApplicants;
+        if(request.getParameter().contains("sort")){
+            StrategyMoy strategyMoy = new StrategyMoy("sort",0,strategy);
+            strategyMoy.filter(listApplicants);
+            selectedApplicants = strategyMoy.sort();
+        }else{
+            selectedApplicants = strategy.filter(listApplicants);
+        }
 
-        ApplicantList selectedApplicants = strategy.filter(listApplicants);
         List<String> answer = selectedApplicants.getNamesOfApplicants();
         Map<String, List> answerExperience = selectedApplicants.getExperiencesOfApplicants();
         for (JfxView view : views) {
